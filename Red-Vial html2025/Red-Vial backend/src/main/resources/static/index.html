@@ -1,395 +1,209 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - Sistema Web Red-Vial</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
-
-  <!-- Favicons -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Red Vial</title>
   <link href="assets/img/redVial-logoTransparente.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
+  <!-- Bootstrap -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Main CSS File -->
-  <link href="assets/css/main.css" rel="stylesheet">
+  <!-- Estilos personalizados -->
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000000;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
 
-  <!-- =======================================================
-  * Template Name: Tempo
-  * Template URL: https://bootstrapmade.com/tempo-free-onepage-bootstrap-theme/
-  * Updated: Aug 07 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    /* Fondo con luces */
+    .background-effects {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .glow {
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      filter: blur(150px);
+      opacity: 0.5;
+      animation: float 8s infinite alternate ease-in-out;
+    }
+
+    .glow1 { background: #ff7b00; top: 5%; left: 10%; }
+    .glow2 { background: #ff7b00; top: 50%; right: 10%; }
+    .glow3 { background: #00ffaa; bottom: 5%; left: 40%; }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-40px); }
+    }
+
+    /* CARD */
+    .login-card {
+      width: 350px;
+      margin: 100px auto;
+      background: #000000;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0,255,255,0.1);
+      color: white;
+      position: relative;
+    }
+
+    /* Header */
+    .logo-icon {
+      font-size: 40px;
+      color: #00eaff;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .login-card h2 {
+      text-align: center;
+      font-size: 26px;
+      margin-bottom: 5px;
+    }
+
+    .login-card p {
+      text-align: center;
+      color: #aaa;
+      margin-bottom: 20px;
+    }
+
+    /* Inputs */
+    .input-wrapper {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 12px;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid #c7962b;
+      color: white;
+      transition: all .3s;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-bottom: 2px solid #995a26;
+    }
+
+    label {
+      position: absolute;
+      left: 0;
+      bottom: 8px;
+      font-size: 14px;
+      color: #aaa;
+      transition: 0.3s;
+      pointer-events: none;
+    }
+
+    input:focus + label,
+    input:not(:placeholder-shown) + label {
+      bottom: 32px;
+      font-size: 12px;
+      color: #00eaff;
+    }
+
+    /* Botón */
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      background: linear-gradient(90deg, #00eaff, #0077ff);
+      border-radius: 8px;
+      color: #000;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .login-btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 15px #00eaff;
+    }
+
+    /* Registro */
+    .signup {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .signup a {
+      color: #dd7f13;
+    }
+  </style>
 </head>
-<script src="js/auth.js" defer></script>
 
-<body class="index-page">
+<body>
 
+  <!-- Luces de fondo -->
+  <div class="background-effects">
+    <div class="glow glow1"></div>
+    <div class="glow glow2"></div>
+    <div class="glow glow3"></div>
+  </div>
 
-  <header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
-
-      <a href="index.html" class="logo d-flex align-items-center">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1 class="sitename">RED - VIAL</h1>
-      </a>
-
-      <nav id="navmenu" class="navmenu">
-        <ul>  
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="index.html#about">Nosotros</a></li>
-          <li><a href="service-details.html">Servicios</a></li>
-          <li><a href="portfolio-details.html">Advertencias</a></li>
-          <li><a href="blog-details.html">Reportes</a></li>
-          <li><a href="trip-page.html">Contactanos</a></li>
-          <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
-
+  <div class="login-card">
+    <div class="redVial-logoTransparente">
+      <center><img src="assets/img/redVial-logoTransparente.png" width="100" alt="" data-aos="fade-in"></center>   
     </div>
-  </header>
+    <h2>Accede a tu cuenta</h2>
+    <!-- INPUT CORREO -->
+    <div class="input-wrapper">
+      <input type="email" id="correo" class="input-field" placeholder=" " required>
+      <label for="correo">Correo electrónico</label>
+    </div>
 
-  <main class="main">
+    <!-- INPUT CONTRASEÑA -->
+    <div class="input-wrapper">
+      <input type="password" id="password" class="input-field" placeholder=" " required>
+      <label for="password">Contraseña</label>
+    </div>
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero section dark-background">
+    <button class="login-btn" onclick="login()">Iniciar sesión</button>
 
-      <img src="assets/img/redVial-logoPortada.png" alt="" data-aos="fade-in">
-
-      <div class="container text-center" data-aos="fade-up" data-aos-delay="100">
-        <div class="row justify-content-center">
-          <div class="col-lg-8">
-            <h2> Bienvenidos a Red - Vial </h2>
-            <p>Ofertas, Reportes, Recomendaciones y mas en la via.</p>
-            <a href="#about" class="btn-get-started">Iniciar</a>
-          </div>
-        </div>
-      </div>
-
-    </section><!-- /Hero Section -->
-
-    <!-- About Section -->
-    <section id="about" class="about section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Nosotros</h2>
-        <p><span>Aprende mas </span> <span class="description-title">Sobre nosotros<br></span></p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row gy-5">
-
-          <div class="content col-xl-5 d-flex flex-column" data-aos="fade-up" data-aos-delay="100">
-            <h3>¿Que es Red Vial? </h3>
-            <p>
-              El proyecto Red Vial va orientada a los camioneros en Colombia, cuyo propósito es mejorar la seguridad vial y optimizar los viajes de carga mediante la conexión entre conductores.
-              Además, busca brindar apoyo a los conductores durante sus recorridos a través de alertas y recomendaciones de seguridad, contribuyendo a disminuir la accidentalidad en carretera.
-            </p>
-            <a href="team-page.html" class="about-btn align-self-center align-self-xl-start"><span>About us</span> <i class="bi bi-chevron-right"></i></a>
-          </div>
-
-          <div class="col-xl-7" data-aos="fade-up" data-aos-delay="200">
-            <div class="row gy-4">
-
-              <div class="col-md-6 icon-box position-relative">
-                <i class="bi bi-briefcase"></i>
-                <h4><a href="" class="stretched-link">¿Por qué nace Red Vial?</a></h4>
-                <p>En Colombia, miles de camioneros enfrentan largas jornadas, falta de comunicación y condiciones de riesgo en carretera. Red Vial surge como una respuesta tecnológica a estas dificultades, con el fin de ofrecer una red colaborativa que promueva la seguridad, la eficiencia y el bienestar de los conductores de carga pesada.</p>
-              </div><!-- Icon-Box -->
-
-              <div class="col-md-6 icon-box position-relative">
-                <i class="bi bi-gem"></i>
-                <h4><a href="" class="stretched-link">Nuestra Misión</a></h4>
-                <p>Facilitar el transporte de carga en el país mediante una aplicación inteligente que conecta a los camioneros con oportunidades laborales, servicios cercanos y rutas más seguras, fortaleciendo el ecosistema logístico nacional.</p>
-              </div><!-- Icon-Box -->
-
-              <div class="col-md-6 icon-box position-relative">
-                <i class="bi bi-broadcast"></i>
-                <h4><a href="" class="stretched-link">Nuestra Visión</a></h4>
-                <p>Convertirnos en la plataforma líder en transporte de carga en Latinoamérica, promoviendo la innovación tecnológica, la sostenibilidad vial y la integración entre empresas de transporte, entidades públicas y los conductores.</p>
-              </div><!-- Icon-Box -->
-
-              <div class="col-md-6 icon-box position-relative">
-                <i class="bi bi-easel"></i>
-                <h4><a href="" class="stretched-link">¿Qué ofrece Red Vial?</a></h4>
-                <ul>
-                  <li>Ofertas de trabajo y solicitudes de carga en tiempo real.</li>
-                  <li>Información sobre peajes, estaciones de servicio y paraderos.</li>
-                  <li>Registro de finanzas, viajes y calificaciones</li>
-                  <li>Comunicación directa entre conductores y empresas</li>
-                </ul>
-              </div><!-- Icon-Box -->
-
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section><!-- /About Section -->
-
-    <!-- Call To Action Section -->
-<section id="call-to-action" class="call-to-action section dark-background">
-
-  <img src="assets/img/redVial-logoPortada.png" alt="">
-
-  <div class="container">
-    <div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
-      <div class="col-xl-10">
-        <div class="text-center">
-          <h3>Únete a Red Vial</h3>
-          <p>Forma parte de la comunidad que conecta a los camioneros de Colombia. Comparte información en la vía, reporta incidentes y accede a oportunidades laborales mientras contribuyes a la seguridad vial del país.</p>
-          <a class="cta-btn" href="service-details.html">Conocer más</a>
-        </div>
-      </div>
+    <div class="signup">
+      <a href="registro.html">¿No tienes cuenta? Regístrate</a>
     </div>
   </div>
 
-</section>
+  <script>
+    async function login() {
+      const correo = document.getElementById("correo").value;
+      const password = document.getElementById("password").value;
 
+      const resp = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ correo, password })
+      });
 
-<!-- Portfolio Section -->
-<section id="portfolio" class="portfolio section">
+      if (!resp.ok) {
+        alert("Credenciales incorrectas");
+        return;
+      }
 
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Casos de Uso</h2>
-    <p><span>Descubre cómo</span> <span class="description-title">funciona Red Vial</span></p>
-  </div>
+      const data = await resp.json();
+      localStorage.setItem("token", data.token);
 
-  <div class="container">
-    <div class="row gy-4" data-aos="fade-up" data-aos-delay="200">
-
-      <div class="col-lg-4 col-md-6">
-        <div class="portfolio-item">
-          <img src="assets/img/blog/oferta_trabajo.jpg" class="img-fluid" alt="">
-          <div class="portfolio-info">
-            <h4>Ofertas de Trabajo</h4>
-            <p>Camioneros conectados con empresas de transporte y carga.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-4 col-md-6">
-        <div class="portfolio-item">
-          <img src="assets/img/blog/reportes3.webp" class="img-fluid" width="200" alt="">
-          <div class="portfolio-info">
-            <h4>Área de Reporte</h4>
-            <p>Informa sobre accidentes, retenes o problemas en carretera en tiempo real.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-4 col-md-6">
-        <div class="portfolio-item">
-          <img src="assets/img/blog/seguridad_vial.jpeg" class="img-fluid" alt="">
-          <div class="portfolio-info">
-            <h4>Seguridad Vial</h4>
-            <p>Recomendaciones y alertas de seguridad para cuidar tu viaje.</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-</section>
-
-    <!-- Pricing Section -->
-<section id="pricing" class="pricing section">
-
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Planes</h2>
-    <p><span>Elige cómo</span> <span class="description-title">quieres participar</span></p>
-  </div>
-
-  <div class="container" data-aos="zoom-in" data-aos-delay="100">
-    <div class="row g-4">
-
-      <div class="col-lg-4">
-        <div class="pricing-item">
-          <h3>Conductor</h3>
-          <div class="icon">
-            <i class="bi bi-truck"></i>
-          </div>
-          <h4>Gratis</h4>
-          <ul>
-            <li><i class="bi bi-check"></i> Acceso a ofertas de carga</li>
-            <li><i class="bi bi-check"></i> Reporte de incidentes</li>
-            <li><i class="bi bi-check"></i> Recomendaciones de seguridad</li>
-          </ul>
-          <div class="text-center"><a href="trip-page.html" class="buy-btn">Registrarse</a></div>
-        </div>
-      </div>
-
-      <div class="col-lg-4">
-        <div class="pricing-item featured">
-          <h3>Empresa de Transporte</h3>
-          <div class="icon">
-            <i class="bi bi-building"></i>
-          </div>
-          <h4>$49.000 / mes</h4>
-          <ul>
-            <li><i class="bi bi-check"></i> Publicar ofertas de carga</li>
-            <li><i class="bi bi-check"></i> Conectar con conductores verificados</li>
-            <li><i class="bi bi-check"></i> Estadísticas de desempeño</li>
-          </ul>
-          <div class="text-center"><a href="trip-page.html" class="buy-btn">Suscribirse</a></div>
-        </div>
-      </div>
-
-      <div class="col-lg-4">
-        <div class="pricing-item">
-          <h3>Institucional</h3>
-          <div class="icon">
-            <i class="bi bi-shield-check"></i>
-          </div>
-          <h4>$99.000 / mes</h4>
-          <ul>
-            <li><i class="bi bi-check"></i> Acceso a reportes en tiempo real</li>
-            <li><i class="bi bi-check"></i> Análisis de seguridad vial</li>
-            <li><i class="bi bi-check"></i> Integración con entidades públicas</li>
-          </ul>
-          <div class="text-center"><a href="trip-page.html" class="buy-btn">Contactar</a></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-</section>
-
-
-    <!-- Faq Section -->
-    <section id="faq" class="faq section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Frequently Asked Questions</h2>
-        <p><span>PREGUNTAS </span> <span class="description-title">COMUNIDAD</span></p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row justify-content-center">
-
-          <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
-
-            <div class="faq-container">
-
-              <div class="faq-item faq-active">
-                <h3>¿Cómo funcionará la aplicación en zonas de baja cobertura?</h3>
-                <div class="faq-content">
-                  <p>La aplicación está diseñada como una plataforma web progresiva (PWA) que permite el almacenamiento de datos en el dispositivo cuando no hay señal. Una vez se recupera la conectividad, la información se sincroniza automáticamente con el servidor, garantizando que los registros de viajes, cargas y alertas no se pierdan.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <h3>¿Cómo se van a evitar los viajes vacíos de los camioneros?</h3>
-                <div class="faq-content">
-                  <p>La plataforma implementa un sistema de emparejamiento de cargas: cuando un camionero lleva mercancía de punto A a B, puede conectarse con usuarios que requieran transportar carga de B a A. De esta forma se reducen los recorridos sin carga, lo que impacta en la eficiencia operativa y en la rentabilidad del conductor.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <h3>¿Qué estrategias tendrán para garantizar la seguridad de datos de los usuarios?</h3>
-                <div class="faq-content">
-                  <p>Red Vial integrará protocolos de cifrado de extremo a extremo, autenticación de usuarios mediante contraseñas seguras y validación documental para evitar fraudes. Además, se aplicarán pruebas de seguridad y auditorías periódicas que aseguren la confianza de los transportadores en la plataforma.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-
-              <div class="faq-item">
-                <h3>¿Cómo piensan capacitar a los usuarios para usar la aplicación?</h3>
-                <div class="faq-content">
-                  <p>Se realizarán capacitaciones iniciales con los transportadores seleccionados en la fase piloto y se dispondrá de tutoriales interactivos dentro de la aplicación. El objetivo es que los camioneros se familiaricen rápidamente con las funciones clave como registro de viajes, gestión de cargas y alertas de seguridad, garantizando una adopción efectiva de la herramienta.</p>
-                </div>
-                <i class="faq-toggle bi bi-chevron-right"></i>
-              </div><!-- End Faq item-->
-            </div>
-
-          </div><!-- End Faq Column-->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Faq Section -->
-  </main>
-
-  <footer id="footer" class="footer dark-background">
-
-    <div class="container footer-top">
-      <div class="row gy-4">
-        <div class="col-lg-5 col-md-12 footer-about">
-          <a href="index.html" class="logo d-flex align-items-center">
-            <span class="sitename">Contactanos</span>
-          </a>
-          <p>Informacion en la via, seguridad en el camino.</p>
-          <div class="social-links d-flex mt-4">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
-          </div>
-        </div>
-<div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-          <p>Carrera 9 #45A - 44</p>
-          <p>Bogota, 3218718343</p>
-          <p>Colombia</p>
-          <p><strong>Email:</strong> <span>redvial@gmail.com</span></p>
-        </div>
-
-        <div class="col-lg-2 col-6 footer-links">
-          <p>Didier Perilla <br> Phone: +57 311 5945009</p></li>
-          <p>Juan Diego Galindo <br> Phone: +57 310 3427578 </p></li>
-          <p>Juan Pablo Coronado <br> Phone: +57 321 8718343</p></li>
-          <p>Sofia Torres <br> Phone: +57 350 2473633</p></li>
-        </div>
-
-        
-
-      </div>
-    </div>
-
-  </footer>
-
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Preloader -->
-  <div id="preloader"></div>
-
-  <!-- otros scripts del template -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/js/main.js"></script>
-
-  <!-- nuestro script de sesión -->
-  <script src="assets/js/auth.js"></script>
-
+      alert("Inicio de sesión exitoso");
+      window.location.href = "PaginaPrincipal.html";
+    }
+  </script>
 </body>
-
 </html>
