@@ -35,7 +35,7 @@ public class EmailService {
                     <p>Gracias por registrarte en <b>Red Vial</b>.</p>
                     <p>Para activar tu cuenta, haz clic en el siguiente botón:</p>
                     <p style="text-align:center; margin:20px 0;">
-                      <a href="%s"
+                      <a href="http://3.21.236.241:8080/api/auth/confirmar?token="
                          style="background-color:#007bff;color:white;
                                 padding:10px 20px;
                                 text-decoration:none;
@@ -45,7 +45,7 @@ public class EmailService {
                       </a>
                     </p>
                     <p>Si el botón no funciona, copia y pega este enlace en tu navegador:</p>
-                    <p>%s</p>
+                    <p>http://3.21.236.241:8080/api/auth/confirmar?token=</p>
                     """.formatted(urlVerificacion, urlVerificacion);
 
             MimeMessage mime = mailSender.createMimeMessage();
