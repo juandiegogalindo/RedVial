@@ -24,40 +24,52 @@ public class OfertaController {
         this.usuarioRepo = usuarioRepo;
     }
 
+    // ===============================
+    //     LISTAR OFERTAS (PUBLICO)
+    // ===============================
     @GetMapping
     public List<Oferta> listar() {
         return repo.findAll();
     }
 
+    // ===============================
+    //     CREAR OFERTA
+    // ===============================
     @PostMapping
     public ResponseEntity<?> crear(@RequestBody Oferta o, Authentication authentication) {
-
         try {
-            // 🔹 Si hay usuario autenticado, se guarda como propietario.
+            // Asignar propietario si está logueado
             if (authentication != null) {
                 String correo = authentication.getName();
-                Optional<Usuario> optUser = usuarioRepo.findByCorreo(correo);
-                optUser.ifPresent(o::setPropietario);
+                Optional<Usuario> u = usuarioRepo.findByCorreo(correo);
+                u.ifPresent(o::setPropietario);
             }
 
-            // Aquí ya viene telefonoContacto desde el JSON (si lo mandas desde JS)
+            // ✓ teléfonoContacto ya viene en el JSON y se guarda automáticamente
             Oferta saved = repo.save(o);
+
             return ResponseEntity.ok(saved);
 
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(500).body("Error al crear oferta: " + e.getMessage());
+            return ResponseEntity.status(500)
+                    .body("Error al crear oferta: " + e.getMessage());
         }
     }
 
+    // ===============================
+    //     ELIMINAR OFERTA
+    // ===============================
     @DeleteMapping("/{id}")
     public ResponseEntity<?> borrar(@PathVariable Long id, Authentication authentication) {
+
         Optional<Oferta> opt = repo.findById(id);
-        if (opt.isEmpty()) return ResponseEntity.notFound().build();
+        if (opt.isEmpty())
+            return ResponseEntity.notFound().build();
 
         Oferta oferta = opt.get();
 
-        // Si no hay auth, de momento dejamos eliminar igual que antes (puedes endurecer después)
+        // Si no está logueado, borrar sin restricciones (tu lógica original)
         if (authentication == null) {
             repo.deleteById(id);
             return ResponseEntity.ok().build();
@@ -67,11 +79,11 @@ public class OfertaController {
         Usuario actual = usuarioRepo.findByCorreo(correo).orElseThrow();
 
         boolean esAdmin = actual.getRol().name().equals("ROLE_ADMIN");
-        boolean esPropietario = oferta.getPropietario() != null
-                && oferta.getPropietario().getId().equals(actual.getId());
+        boolean esPropietario = oferta.getPropietario() != null &&
+                oferta.getPropietario().getId().equals(actual.getId());
 
         if (!esAdmin && !esPropietario) {
-            return ResponseEntity.status(403).body("No tiene permiso para eliminar esta oferta");
+            return ResponseEntity.status(403).body("No tienes permiso para eliminar esta oferta.");
         }
 
         repo.deleteById(id);
