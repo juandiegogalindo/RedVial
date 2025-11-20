@@ -80,7 +80,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- 🔥 CORREO SMTP (PARA NOTIFICAR REGISTROS) -->
+        <!-- CORREO SMTP (PARA NOTIFICAR REGISTROS) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
