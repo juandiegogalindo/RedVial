@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Contáctanos - Red Vial</title>
+  <meta name="description" content="Somos estudiantes de Ingeniería de Sistemas de la Universidad Piloto de Colombia. Nuestra pasión es aprender, crear y superarnos.">
+  <meta name="keywords" content="Red Vial, Universidad Piloto, Ingeniería de Sistemas, Transporte, Colombia">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Poppins:wght@300;400;700&family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+
+<body class="starter-page-page">
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center">
+        <h1 class="sitename">Red Vial</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="index.html#about">Nosotros</a></li>
+          <li><a href="service-details.html">Servicios</a></li>
+          <li><a href="portfolio-details.html">Advertencias</a></li>
+          <li><a href="team-page.html">Team</a></li>
+          <li><a href="blog-details.html">Reportes</a></li>
+          <li><a href="trip-page.html" class="active">Contáctanos</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
+  </header>
+  <!-- End Header -->
+
+  <main class="main">
+
+    <!-- ======= Page Title ======= -->
+    <div class="page-title dark-background" style="background-image: url(assets/img/redVial-logoTeamPage.jpeg);">
+      <div class="container position-relative">
+        <h1>¿Quiénes Somos?</h1>
+        <p>
+          Somos estudiantes de Ingeniería de Sistemas de la Universidad Piloto de Colombia.  
+          Nos apasiona aprender, crear y superarnos cada día.
+        </p>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.html">Inicio</a></li>
+            <li class="current">Contáctanos</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <!-- End Page Title -->
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact section">
+
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Contacto</h2>
+        <p><span>¿Necesitas ayuda?</span> <span class="description-title">Contáctanos</span></p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <!-- ======= Google Maps ======= -->
+        <div class="mb-4" data-aos="fade-up" data-aos-delay="200">
+          <iframe
+            style="border:0; width:100%; height:350px; border-radius:12px;"
+            src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d635168.097382456!2d-73.89531677145104!3d5.661939179547292!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m3!3m2!1d4.711!2d-74.0721!4m3!3m2!1d7.8939!2d-72.5078!5e0!3m2!1ses!2sco!4v1731430000000!5m2!1ses!2sco"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <!-- End Google Maps -->
+
+        <div class="row gy-4">
+          <!-- Info Column -->
+          <div class="col-lg-4">
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+              <i class="bi bi-geo-alt flex-shrink-0"></i>
+              <div>
+                <h3>Dirección</h3>
+                <p>Carrera 9 #45A - 44, Bogotá, Colombia</p>
+              </div>
+            </div>
+
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+              <i class="bi bi-telephone flex-shrink-0"></i>
+              <div>
+                <h3>Llámanos</h3>
+                <p>+57 310 3427578</p>
+              </div>
+            </div>
+
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
+              <i class="bi bi-envelope flex-shrink-0"></i>
+              <div>
+                <h3>Correo Electrónico</h3>
+                <p>redvial@gmail.com</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <div class="col-lg-8">
+            <!-- Usamos el backend /api/contacto y contact.js -->
+            <form id="contactForm" class="php-email-form" onsubmit="return enviarFormularioContacto(event)" data-aos="fade-up" data-aos-delay="200">
+              <div class="row gy-4">
+
+                <div class="col-md-6">
+                  <input type="text" name="name" class="form-control" placeholder="Tu Nombre" required>
+                </div>
+
+                <div class="col-md-6">
+                  <input type="email" class="form-control" name="email" placeholder="Tu Correo" required>
+                </div>
+
+                <div class="col-md-12">
+                  <input type="text" class="form-control" name="subject" placeholder="Asunto" required>
+                </div>
+
+                <div class="col-md-12">
+                  <textarea class="form-control" name="message" rows="6" placeholder="Mensaje" required></textarea>
+                </div>
+
+                <div class="col-md-12 text-center">
+                  <button type="submit">Enviar Mensaje</button>
+                </div>
+
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <!-- End Contact Section -->
+
+  </main>
+
+  <footer id="footer" class="footer dark-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-12 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <span class="sitename">Contactanos</span>
+          </a>
+          <p>Informacion en la via, seguridad en el camino.</p>
+          <div class="social-links d-flex mt-4">
+            <a href=""><i class="bi bi-twitter-x"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+          <p>Carrera 9 #45A - 44</p>
+          <p>Bogota, 3218718343</p>
+          <p>Colombia</p>
+          <p><strong>Email:</strong> <span>redvial@gmail.com</span></p>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <p>Didier Perilla <br> Phone: +57 311 5945009</p>
+          <p>Juan Diego Galindo <br> Phone: +57 310 3427578 </p>
+          <p>Juan Pablo Coronado <br> Phone: +57 321 8718343</p>
+          <p>Sofia Torres <br> Phone: +57 350 2473633</p>
+        </div>
+
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Ya no usamos php-email-form/validate.js -->
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+  <!-- JS de contacto que habla con /api/contacto -->
+  <script src="assets/js/contact.js"></script>
+
+</body>
+</html>

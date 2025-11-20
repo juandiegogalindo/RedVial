@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ofertas - Red Vial</title>
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+<body onload="requireLogin(); cargarOfertas()">
+
+  <!-- Header simple -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <h1 class="sitename">RED - VIAL</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="ofertas-page.html" class="active">Ofertas</a></li>
+          <li><a href="blog-details.html">Reportes</a></li>
+          <li><a href="service-details.html">Servicios</a></li>
+          <li><a href="portfolio-details.html">Advertencias</a></li>
+          <li><a href="team-page.html">Team</a></li>
+          <li><a href="trip-page.html">Contactanos</a></li>
+          <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main" style="margin-top:80px;">
+    <section class="section">
+      <div class="container">
+        <h2 class="mb-4">Ofertas de trabajo</h2>
+
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Crear nueva oferta</h5>
+            <div class="row g-3">
+              <div class="col-md-3">
+                <label class="form-label">Título</label>
+                <input id="of_titulo" class="form-control" type="text">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Origen</label>
+                <input id="of_origen" class="form-control" type="text">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Destino</label>
+                <input id="of_destino" class="form-control" type="text">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Salario</label>
+                <input id="of_salario" class="form-control" type="text">
+              </div>
+            </div>
+            <button class="btn btn-success mt-3" onclick="crearOferta()">Guardar oferta</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Listado de ofertas</h5>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Origen</th>
+                    <th>Destino</th>
+                    <th>Salario</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-ofertas-body">
+                  <!-- filas por JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/ofertas.js"></script>
+</body>
+</html>
