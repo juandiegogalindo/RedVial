@@ -1,43 +1,77 @@
 <!DOCTYPE html>
 <html lang="es">
+  
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reportes - Red Vial</title>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Ofertas - Red Vial</title>
+  <meta name="description" content="Conoce los servicios que Red Vial ofrece para mejorar la seguridad y el bienestar de los camioneros en carretera.">
+  <meta name="keywords" content="seguridad vial, camioneros, reportes de carretera, empleo transporte, red vial">
 
-  <!-- IMPORTANTE: rutas absolutas /assets/... -->
-  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-  <link href="/assets/css/main.css" rel="stylesheet">
+  <!-- Favicons -->
+   <link href="assets/img/redVial-logoTransparente.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
 </head>
 
-<body class="index-page" onload="requireLogin(); cargarReportes()">
+<body class="service-details-page">
 
   <!-- Header -->
   <header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
       <a href="index.html" class="logo d-flex align-items-center">
-        <h1 class="sitename">RED - VIAL</h1>
+        <h1 class="sitename">Red Vial</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="index.html">Inicio</a></li>
-          <li><a href="ofertas-page.html">Ofertas</a></li>
-          <li><a href="blog-details.html" class="active">Reportes</a></li>
+          <li><a href="index.html#about">Nosotros</a></li>
           <li><a href="service-details.html">Servicios</a></li>
           <li><a href="portfolio-details.html">Advertencias</a></li>
-          <li><a href="team-page.html">Team</a></li>
-          <li><a href="trip-page.html">Contáctanos</a></li>
+          <li><a href="blog-details.html">Reportes</a></li>
+          <li><a href="trip-page.html">Contactanos</a></li>
           <li><a href="#" onclick="logout()">Cerrar sesión</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
+
     </div>
   </header>
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title dark-background" style="background-image: url(assets/img/redVial-logoPortada.png);">
+      <div class="container position-relative">
+        <h1>Reporte</h1>
+        <p>En esta sección nuestro cliente va a poder postear cada accidente, evento, recomendaciones o demas que puedan haber en la via, es un espacio libre para comentar donde no seras juzgado.</p>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.html">Inicio</a></li>
+            <li class="current">Reporte</li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+<body class="index-page" onload="requireLogin(); cargarReportes()">
+
 
   <!-- Contenido principal -->
   <main class="main">
