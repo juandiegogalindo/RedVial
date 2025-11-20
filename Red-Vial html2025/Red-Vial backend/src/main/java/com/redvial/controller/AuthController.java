@@ -49,6 +49,17 @@ public class AuthController {
     @PostMapping("/registro")
     public ResponseEntity<?> registrar(@RequestBody RegisterRequest r) {
 
+        // Validar campos obligatorios
+        if (r.getNombre() == null || r.getNombre().trim().isEmpty() ||
+        r.getCorreo() == null || r.getCorreo().trim().isEmpty() ||
+        r.getTelefono() == null || r.getTelefono().trim().isEmpty() ||
+        r.getPassword() == null || r.getPassword().trim().isEmpty()) {
+
+    return ResponseEntity
+            .badRequest()
+            .body("Todos los campos son obligatorios.");
+}
+
         if (r.getCorreo() != null) {
             r.setCorreo(r.getCorreo().trim().toLowerCase());
         }
@@ -63,10 +74,10 @@ public class AuthController {
 
         // Validar teléfono: solo números y longitud 7-15
         String telefono = r.getTelefono();
-        if (telefono == null || !telefono.matches("^[0-9]{7,15}$")) {
+        if (telefono == null || !telefono.matches("^[0-9]{10}$")) {
         return ResponseEntity
             .badRequest()
-            .body("El teléfono debe contener solo números (entre 7 y 15 dígitos).");
+            .body("El teléfono debe contener solo números.");
         }
 
         // 🔹 Verificar si ya está registrado
