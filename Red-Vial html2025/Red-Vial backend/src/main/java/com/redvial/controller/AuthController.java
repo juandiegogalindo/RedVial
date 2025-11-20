@@ -189,7 +189,7 @@ public class AuthController {
                     <div class="card">
                         <h2>Cuenta verificada ✅</h2>
                         <p>Ya puedes iniciar sesión.</p>
-                        <a class="btn" href="http://3.21.236.241:8080/login.html">Ir al login</a>
+                        <a class="btn" href="http://3.21.236.241:8080">Ir al login</a>
                     </div>
                 </body>
                 </html>
