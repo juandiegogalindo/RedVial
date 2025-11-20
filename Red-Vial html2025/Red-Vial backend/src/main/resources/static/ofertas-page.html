@@ -42,6 +42,7 @@
       <div class="container">
         <h2 class="mb-4">Ofertas de trabajo</h2>
 
+        <!-- ===== FORMULARIO ===== -->
         <div class="card mb-4">
           <div class="card-body">
             <h5 class="card-title">Crear nueva oferta</h5>
@@ -63,10 +64,20 @@
                 <input id="of_salario" class="form-control" type="text">
               </div>
             </div>
+
+            <div class="row g-3 mt-1">
+              <div class="col-md-3">
+                <!-- 🆕 Teléfono de contacto -->
+                <label class="form-label">Teléfono de contacto</label>
+                <input id="of_telefono" class="form-control" type="text" placeholder="+57 300 0000000">
+              </div>
+            </div>
+
             <button class="btn btn-success mt-3" onclick="crearOferta()">Guardar oferta</button>
           </div>
         </div>
 
+        <!-- ===== LISTADO ===== -->
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Listado de ofertas</h5>
@@ -79,6 +90,8 @@
                     <th>Origen</th>
                     <th>Destino</th>
                     <th>Salario</th>
+                    <!-- 🆕 -->
+                    <th>Teléfono contacto</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>

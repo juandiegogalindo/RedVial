@@ -13,7 +13,11 @@ public class Oferta {
     private String titulo;
     private String origen;
     private String destino;
-    private String salario; // mantengo tipo String como en tu diseño previo
+    private String salario; // se mantiene como String
+
+    // 🆕 Teléfono de contacto del cliente
+    @Column(name = "telefono_contacto")
+    private String telefonoContacto;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
@@ -21,7 +25,10 @@ public class Oferta {
 
     public Oferta() {}
 
-    // Getters y Setters
+    // =======================
+    //        GETTERS/SETTERS
+    // =======================
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -36,6 +43,11 @@ public class Oferta {
 
     public String getSalario() { return salario; }
     public void setSalario(String salario) { this.salario = salario; }
+
+    public String getTelefonoContacto() { return telefonoContacto; }
+    public void setTelefonoContacto(String telefonoContacto) {
+        this.telefonoContacto = telefonoContacto;
+    }
 
     public Usuario getPropietario() { return propietario; }
     public void setPropietario(Usuario propietario) { this.propietario = propietario; }
