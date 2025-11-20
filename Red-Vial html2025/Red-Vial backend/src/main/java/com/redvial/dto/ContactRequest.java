@@ -3,7 +3,6 @@ package com.redvial.dto;
 public class ContactRequest {
 
     private String nombre;
-    private String correo;
     private String asunto;
     private String mensaje;
 
@@ -14,13 +13,6 @@ public class ContactRequest {
     }
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-    public void setCorreo(String correo) {
-        this.correo = correo;
     }
 
     public String getAsunto() {
