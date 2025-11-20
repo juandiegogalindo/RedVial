@@ -17,7 +17,7 @@ async function registro() {
     };
 
     try {
-        const response = await fetch("http://localhost:8080/api/auth/registro", {
+        const response = await fetch("http://3.21.236.241:8080/api/auth/registro", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
