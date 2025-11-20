@@ -61,6 +61,14 @@ public class AuthController {
                     .body("ERROR PROFE EL CORREO DEBE SER ASI (ej: usuario@gmail.com).");
         }
 
+        // Validar teléfono: solo números y longitud 7-15
+        String telefono = r.getTelefono();
+        if (telefono == null || !telefono.matches("^[0-9]{7,15}$")) {
+        return ResponseEntity
+            .badRequest()
+            .body("El teléfono debe contener solo números (entre 7 y 15 dígitos).");
+        }
+
         // 🔹 Verificar si ya está registrado
         if (repo.findByCorreo(correo).isPresent()) {
             return ResponseEntity.status(409).body("El correo ya está registrado");
