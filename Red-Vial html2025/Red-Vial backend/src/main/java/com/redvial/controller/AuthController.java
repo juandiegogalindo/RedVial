@@ -77,7 +77,7 @@ public class AuthController {
         if (telefono == null || !telefono.matches("^[0-9]{10}$")) {
         return ResponseEntity
             .badRequest()
-            .body("El teléfono debe contener solo números.");
+            .body("El teléfono debe contener solo números (10 Caracteres).");
         }
 
         // 🔹 Verificar si ya está registrado
