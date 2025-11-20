@@ -49,13 +49,26 @@ public class AuthController {
     @PostMapping("/registro")
     public ResponseEntity<?> registrar(@RequestBody RegisterRequest r) {
 
-        if (repo.findByCorreo(r.getCorreo()).isPresent()) {
+        if (r.getCorreo() != null) {
+            r.setCorreo(r.getCorreo().trim().toLowerCase());
+        }
+
+        String correo = r.getCorreo();
+        if (correo == null ||
+                !correo.matches("^[A-Za-z0-9._%+-]+@gmail\\.com$")) {
+            return ResponseEntity
+                    .badRequest()
+                    .body("ERROR PROFE EL CORREO DEBE SER ASI (ej: usuario@gmail.com).");
+        }
+
+        // 🔹 Verificar si ya está registrado
+        if (repo.findByCorreo(correo).isPresent()) {
             return ResponseEntity.status(409).body("El correo ya está registrado");
         }
 
         Usuario u = new Usuario();
         u.setNombre(r.getNombre());
-        u.setCorreo(r.getCorreo());
+        u.setCorreo(correo);
         u.setTelefono(r.getTelefono());
         u.setPassword(encoder.encode(r.getPassword()));
         u.setRol(Role.ROLE_USER);

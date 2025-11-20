@@ -9,6 +9,13 @@ async function registro() {
         return;
     }
 
+    const gmailRegex = /^[A-Za-z0-9._%+-]+@gmail\.com$/;
+
+    if (!gmailRegex.test(email)) {
+        alert("El correo debe ser un Gmail válido (ej: usuario@gmail.com).");
+        return;
+    }
+
     const data = {
         nombre: user,
         correo: email,
