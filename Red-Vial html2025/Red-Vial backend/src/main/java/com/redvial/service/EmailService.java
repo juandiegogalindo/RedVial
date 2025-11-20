@@ -20,9 +20,9 @@ public class EmailService {
         this.from = from;
     }
 
-    /**
-     * SOLO se encarga de enviar el correo de VERIFICACIÓN de registro.
-     */
+    // =======================
+    // 1) Correo de VERIFICACIÓN DE CUENTA
+    // =======================
     public void enviarCorreoRegistro(String destino, String token) {
         try {
             System.out.println("ENVIANDO CORREO DE VERIFICACION A: " + destino);
@@ -61,6 +61,44 @@ public class EmailService {
 
         } catch (Exception e) {
             System.out.println("ERROR ENVIANDO CORREO DE VERIFICACION: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    // =======================
+    // 2) Correo de CONTACTO (trip-page)
+    // =======================
+    public void enviarCorreoContacto(String nombre,
+                                     String correoUsuario,
+                                     String asunto,
+                                     String mensaje) {
+        try {
+            System.out.println("ENVIANDO CORREO DE CONTACTO DESDE: " + correoUsuario);
+
+            String html = """
+                    <h2>Nuevo mensaje de contacto</h2>
+                    <p><b>Nombre:</b> %s</p>
+                    <p><b>Correo:</b> %s</p>
+                    <p><b>Asunto:</b> %s</p>
+                    <p><b>Mensaje:</b></p>
+                    <p>%s</p>
+                    """.formatted(nombre, correoUsuario, asunto, mensaje);
+
+            MimeMessage mime = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mime, "utf-8");
+
+            // Lo recibes en el correo del proyecto (from / spring.mail.username)
+            helper.setTo(from);
+            helper.setFrom(from);
+            helper.setSubject("Red Vial - Nuevo mensaje de contacto: " + asunto);
+            helper.setReplyTo(correoUsuario);   // para poder responder directo
+            helper.setText(html, true);
+
+            mailSender.send(mime);
+
+            System.out.println("CORREO DE CONTACTO ENVIADO CORRECTAMENTE.");
+        } catch (Exception e) {
+            System.out.println("ERROR ENVIANDO CORREO DE CONTACTO: " + e.getMessage());
             e.printStackTrace();
         }
     }

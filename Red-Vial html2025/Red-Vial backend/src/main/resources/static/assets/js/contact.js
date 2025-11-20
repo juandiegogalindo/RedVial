@@ -1,6 +1,5 @@
 async function enviarFormularioContacto(event) {
-  /*
-    event.preventDefault(); // evitar que recargue la página
+  event.preventDefault(); // evitar que recargue la página
 
   const form = document.getElementById("contactForm");
 
@@ -40,5 +39,5 @@ async function enviarFormularioContacto(event) {
     console.error(e);
     alert("No se pudo enviar el mensaje, intenta de nuevo.");
     return false;
-  }*/
+  }
 }
