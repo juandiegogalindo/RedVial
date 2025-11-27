@@ -48,18 +48,26 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
 
-                // Public (login y registro)
-                .requestMatchers("/api/auth/**").permitAll()
+        // Public (login y registro)
+        .requestMatchers("/api/auth/**").permitAll()
 
-                // HTML y assets públicos para que el navegador pueda cargarlos
-                .requestMatchers("/", "/**/*.html", "/assets/**", "/css/**", "/js/**", "/img/**")
-                .permitAll()
+        // HTML y assets públicos
+        .requestMatchers(
+                "/", 
+                "/*.html",
+                "/**/*.html",
+                "/assets/**",
+                "/css/**",
+                "/js/**",
+                "/img/**"
+        ).permitAll()
 
-                // Todas las APIs protegidas
-                .requestMatchers("/api/**").authenticated()
+        // Protegido
+        .requestMatchers("/api/**").authenticated()
 
-                .anyRequest().permitAll()
-            )
+        .anyRequest().permitAll()
+)
+
             .authenticationProvider(authProvider())
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
