@@ -179,7 +179,7 @@ public class AuthController {
                         <div class="card">
                             <h2>Enlace inválido ❌</h2>
                             <p>El enlace ya fue usado o no es válido.</p>
-                            <a class="btn" href="http://3.21.236.241:8080/registro.html">Volver al registro</a>
+                            <a class="btn" href="https://redvial.site/registro.html">Volver al registro</a>
                         </div>
                     </body>
                     </html>
@@ -197,7 +197,7 @@ public class AuthController {
                 <html>
                 <head>
                     <meta charset="UTF-8"/>
-                    <meta http-equiv="refresh" content="4; URL=http://3.21.236.241:8080/login.html"/>
+                    <meta http-equiv="refresh" content="4; URL=https://redvial.site"/>
                     <style>
                         body { background:#f5f5f5; font-family:Arial; }
                         .card {
@@ -221,7 +221,7 @@ public class AuthController {
                     <div class="card">
                         <h2>Cuenta verificada ✅</h2>
                         <p>Ya puedes iniciar sesión.</p>
-                        <a class="btn" href="http://3.21.236.241:8080">Ir al login</a>
+                        <a class="btn" href="https://redvial.site">Ir al login</a>
                     </div>
                 </body>
                 </html>
