@@ -199,7 +199,7 @@ public ResponseEntity<String> confirmar(@RequestParam("token") String token) {
                                 text-align:center;">
                         <h2>Esta cuenta ya fue verificada ✔</h2>
                         <p>Puedes iniciar sesión sin problema.</p>
-                        <a href="https://redvial.site/login.html"
+                        <a href="https://redvial.site"
                            style="display:block;margin-top:20px;padding:10px;background:#28A745;
                                   color:white;text-decoration:none;border-radius:6px;">
                            Ir al login
@@ -260,14 +260,14 @@ public ResponseEntity<String> confirmar(@RequestParam("token") String token) {
 
     String html = """
             <html>
-            <head><meta charset="UTF-8"/><meta http-equiv="refresh" content="4; URL=https://redvial.site/login.html"/></head>
+            <head><meta charset="UTF-8"/><meta http-equiv="refresh" content="4; URL=https://redvial.site"/></head>
             <body style="background:#f5f5f5;font-family:Arial;">
                 <div style="margin:80px auto;width:350px;padding:25px;background:white;
                             border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.1);
                             text-align:center;">
                     <h2>Cuenta verificada ✅</h2>
                     <p>Ya puedes iniciar sesión.</p>
-                    <a href="https://redvial.site/login.html"
+                    <a href="https://redvial.site"
                        style="display:block;margin-top:20px;padding:10px;background:#28A745;
                               color:white;text-decoration:none;border-radius:6px;">
                        Ir al login
