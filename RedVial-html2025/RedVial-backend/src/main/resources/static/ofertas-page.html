@@ -45,7 +45,7 @@
           <li><a href="portfolio-details.html">Advertencias</a></li>
           <li><a href="blog-details.html">Reportes</a></li>
           <li><a href="trip-page.html">Contactanos</a></li>
-          <li><a href="https://redvial.site" onclick="logout()">Cerrar sesión</a></li>
+          <li><a href="https://redvial.site/" onclick="logout()">Cerrar sesión</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -55,11 +55,11 @@
 
   <main class="main" style="margin-top:80px;">
 
-      <!-- Page Title -->
+    <!-- Page Title -->
     <div class="page-title dark-background" style="background-image: url(assets/img/redVial-logoPortada.png);">
       <div class="container position-relative">
         <h1>Ofertas</h1>
-        <p>En esta seccion, las empresas y camioneras seran autorizados para publicar ofertas de trabajo las cuales les brinde beneficios a los clientes que desen tomar este reto ! .</p>
+        <p>En esta seccion, las empresas y camioneras seran autorizados para publicar ofertas de trabajo las cuales les brinde beneficios a los clientes que desen tomar este reto.</p>
         <nav class="breadcrumbs">
           <ol>
             <li><a href="PaginaPrincipal.html">Inicio</a></li>
@@ -67,13 +67,14 @@
           </ol>
         </nav>
       </div>
-    </div><!-- End Page Title -->
+    </div>
+    <!-- End Page Title -->
 
     <section class="section">
       <div class="container">
         <h2 class="mb-4">Ofertas de trabajo</h2>
 
-        <!-- ===== FORMULARIO ===== -->
+        <!-- FORMULARIO -->
         <div class="card mb-4">
           <div class="card-body">
             <h5 class="card-title">Crear nueva oferta</h5>
@@ -98,7 +99,6 @@
 
             <div class="row g-3 mt-1">
               <div class="col-md-3">
-                <!-- 🆕 Teléfono de contacto -->
                 <label class="form-label">Teléfono de contacto</label>
                 <input id="of_telefono" class="form-control" type="text" placeholder="+57 300 0000000">
               </div>
@@ -108,7 +108,7 @@
           </div>
         </div>
 
-        <!-- ===== LISTADO ===== -->
+        <!-- LISTADO -->
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Listado de ofertas</h5>
@@ -121,13 +121,12 @@
                     <th>Origen</th>
                     <th>Destino</th>
                     <th>Salario</th>
-                    <!-- 🆕 -->
                     <th>Teléfono contacto</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody id="tabla-ofertas-body">
-                  <!-- filas por JS -->
+                  <!-- FILAS generadas por JS -->
                 </tbody>
               </table>
             </div>
@@ -144,7 +143,8 @@
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/js/main.js"></script>
 
-  <script src="assets/js/auth.js"></script>
+  <!-- SCRIPTS JS -->
+  <script src="/assets/js/auth.js"></script>
   <script src="assets/js/ofertas.js"></script>
 </body>
 </html>
