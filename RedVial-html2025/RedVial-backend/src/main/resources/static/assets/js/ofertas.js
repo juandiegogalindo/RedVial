@@ -29,7 +29,7 @@ async function cargarOfertas() {
       if (resp.status === 401 || resp.status === 403) {
         alert("Tu sesión ha expirado. Inicia sesión nuevamente.");
         localStorage.removeItem("token");
-        window.location.href = "login.html";
+        window.location.href = "https://redvial.site";
       }
       return;
     }
