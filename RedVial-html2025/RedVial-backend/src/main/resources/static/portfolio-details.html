@@ -28,7 +28,7 @@
   <link href="assets/css/main.css" rel="stylesheet">
 </head>
 
-<body class="portfolio-details-page">
+<body class="portfolio-details-page" onload="requireLogin();">
 
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
@@ -45,7 +45,7 @@
           <li><a href="portfolio-details.html">Advertencias</a></li>
           <li><a href="blog-details.html">Reportes</a></li>
           <li><a href="trip-page.html">Contactanos</a></li>
-          <li><a href="https://redvial.site" onclick="logout()">Cerrar sesión</a></li>
+          <li><a href="https://redvial.site/" onclick="logout()">Cerrar sesión</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -220,6 +220,7 @@
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
   <!-- Main JS File -->
+   <script src="/assets/js/auth.js"></script>
   <script src="assets/js/main.js"></script>
 
 </body>
