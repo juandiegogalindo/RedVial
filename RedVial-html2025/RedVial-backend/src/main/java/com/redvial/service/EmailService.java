@@ -28,7 +28,7 @@ public class EmailService {
             System.out.println("ENVIANDO CORREO DE VERIFICACION A: " + destino);
 
             String urlVerificacion =
-                    "http://redvial.site/api/auth/confirmar?token=" + token;
+                    "https://redvial.site/api/auth/confirmar?token=" + token;
 
             String html = """
                     <h2>Bienvenido a Red Vial</h2>
