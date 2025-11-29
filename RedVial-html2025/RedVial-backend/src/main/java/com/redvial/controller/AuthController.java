@@ -168,7 +168,7 @@ public ResponseEntity<String> confirmar(@RequestParam("token") String token) {
                                 text-align:center;">
                         <h2>Enlace inválido ❌</h2>
                         <p>El enlace ya fue usado o no es válido.</p>
-                        <a href="https://redvial.site/registro.html"
+                        <a href="http://192.168.1.7:8080/registro.html"
                            style="display:block;margin-top:20px;padding:10px;background:#007BFF;
                                   color:white;text-decoration:none;border-radius:6px;">
                            Volver al registro
@@ -199,7 +199,7 @@ public ResponseEntity<String> confirmar(@RequestParam("token") String token) {
                                 text-align:center;">
                         <h2>Esta cuenta ya fue verificada ✔</h2>
                         <p>Puedes iniciar sesión sin problema.</p>
-                        <a href="https://redvial.site"
+                        <a href="http://192.168.1.7:8080/"
                            style="display:block;margin-top:20px;padding:10px;background:#28A745;
                                   color:white;text-decoration:none;border-radius:6px;">
                            Ir al login
@@ -236,7 +236,7 @@ public ResponseEntity<String> confirmar(@RequestParam("token") String token) {
                         <h2>Enlace expirado ⏰</h2>
                         <p>Tu enlace de verificación venció (duración máxima: 1 hora).</p>
                         <p>Regístrate nuevamente para recibir un nuevo enlace.</p>
-                        <a href="https://redvial.site/registro.html"
+                        <a href="http://192.168.1.7:8080/registro.html"
                            style="display:block;margin-top:20px;padding:10px;background:#ffc107;
                                   color:black;text-decoration:none;border-radius:6px;">
                            Volver al registro
@@ -260,14 +260,14 @@ public ResponseEntity<String> confirmar(@RequestParam("token") String token) {
 
     String html = """
             <html>
-            <head><meta charset="UTF-8"/><meta http-equiv="refresh" content="4; URL=https://redvial.site"/></head>
+            <head><meta charset="UTF-8"/><meta http-equiv="refresh" content="4; URL=http://192.168.1.7:8080/"/></head>
             <body style="background:#f5f5f5;font-family:Arial;">
                 <div style="margin:80px auto;width:350px;padding:25px;background:white;
                             border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.1);
                             text-align:center;">
                     <h2>Cuenta verificada ✅</h2>
                     <p>Ya puedes iniciar sesión.</p>
-                    <a href="https://redvial.site"
+                    <a href="http://192.168.1.7:8080/"
                        style="display:block;margin-top:20px;padding:10px;background:#28A745;
                               color:white;text-decoration:none;border-radius:6px;">
                        Ir al login
