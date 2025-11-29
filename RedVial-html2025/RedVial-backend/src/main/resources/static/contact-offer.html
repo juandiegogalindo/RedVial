@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Contactar Arrendatario - Red Vial</title>
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Poppins:wght@300;400;700&family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: #f8f9fa;
+    }
+
+    .page-title {
+      background-color: #000;
+      background-size: cover;
+      background-position: center;
+      padding: 120px 0;
+      color: white;
+      margin-bottom: 40px;
+    }
+
+    .card-custom {
+      border-radius: 16px;
+      border: none;
+      box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+    }
+  </style>
+
+</head>
+
+<body class="starter-page-page" onload="requireLogin();">
+
+  <!-- HEADER -->
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <a href="PaginaPrincipal.html" class="logo d-flex align-items-center">
+        <h1 class="sitename">RED VIAL</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="PaginaPrincipal.html">Inicio</a></li>
+          <li><a href="PaginaPrincipal.html#about">Nosotros</a></li>
+          <li><a href="service-details.html">Servicios</a></li>
+          <li><a href="portfolio-details.html">Advertencias</a></li>
+          <li><a href="blog-details.html">Reportes</a></li>
+          <li><a href="trip-page.html">Contactanos</a></li>
+          <li><a href="https://redvial.site/" onclick="logout()">Cerrar sesión</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- HERO / ENCABEZADO -->
+    <div class="page-title dark-background" style="background-image: url('assets/img/redVial-logoTeamPage.jpeg');">
+      <div class="container text-center">
+        <span class="badge bg-pink mb-3" style="font-size: 18px;">OFERTA SELECCIONADA</span>
+        <h1 class="mb-3">Estás aceptando una oferta de trabajo</h1>
+      </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="container">
+
+      <!-- Información de la oferta -->
+      <div class="card card-custom p-4 mb-4">
+        <h4 class="mb-3">Detalles de la oferta</h4>
+        <div id="oferta-detalle" class="p-3 bg-light rounded">
+          Cargando...
+        </div>
+      </div>
+
+      <!-- Formulario de contacto -->
+      <div class="card card-custom p-4 mb-4">
+        <h4 class="mb-3">Enviar mensaje al arrendatario</h4>
+
+        <form id="formContacto" onsubmit="return enviarMensaje(event)">
+          <div class="row gy-3">
+
+            <div class="col-md-6">
+              <input type="text" id="c_nombre" class="form-control" placeholder="Tu Nombre" required>
+            </div>
+
+            <div class="col-md-6">
+              <input type="text" id="c_asunto" class="form-control" placeholder="Asunto" required>
+            </div>
+
+            <div class="col-md-12">
+              <textarea id="c_mensaje" class="form-control" rows="6" placeholder="Mensaje" required></textarea>
+            </div>
+
+            <div class="col-md-12 text-center">
+              <button type="submit" class="btn btn-primary btn-lg px-5">Enviar mensaje</button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- JS -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <!-- CONTACT-OFFER JS -->
+   <script src="/assets/js/auth.js"></script>
+  <script src="assets/js/contact-offer.js"></script>
+
+</body>
+</html>
