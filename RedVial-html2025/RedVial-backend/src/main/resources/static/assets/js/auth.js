@@ -7,7 +7,7 @@ function requireLogin() {
   if (!token) {
     const path = window.location.pathname;
     // si no estamos ya en login o registro, redirigimos
-    if (!path.endsWith("https://redvial.site") && !path.endsWith("registro.html")) {
+    if (!path.endsWith("index.html") && !path.endsWith("registro.html")) {
       window.location.href = "https://redvial.site";
     }
   }
