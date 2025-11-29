@@ -13,20 +13,32 @@ public class Oferta {
     private String titulo;
     private String origen;
     private String destino;
-    private String salario; // se mantiene como String
+    private String salario;
 
-    // 🆕 Teléfono de contacto del cliente
     @Column(name = "telefono_contacto")
     private String telefonoContacto;
 
+    // Usuario que creó la oferta
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
     private Usuario propietario;
 
+    // ============================
+    // NUEVO: ESTADO DE ACEPTACIÓN
+    // ============================
+
+    // Indica si la oferta ya fue aceptada
+    private boolean aceptada = false;
+
+    // Usuario que aceptó la oferta
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "aceptada_por")
+    private Usuario aceptadaPor;
+
     public Oferta() {}
 
     // =======================
-    //        GETTERS/SETTERS
+    // GETTERS & SETTERS
     // =======================
 
     public Long getId() { return id; }
@@ -50,5 +62,21 @@ public class Oferta {
     }
 
     public Usuario getPropietario() { return propietario; }
-    public void setPropietario(Usuario propietario) { this.propietario = propietario; }
+    public void setPropietario(Usuario propietario) {
+        this.propietario = propietario;
+    }
+
+    public boolean isAceptada() {
+        return aceptada;
+    }
+    public void setAceptada(boolean aceptada) {
+        this.aceptada = aceptada;
+    }
+
+    public Usuario getAceptadaPor() {
+        return aceptadaPor;
+    }
+    public void setAceptadaPor(Usuario aceptadaPor) {
+        this.aceptadaPor = aceptadaPor;
+    }
 }
