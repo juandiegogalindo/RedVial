@@ -4,7 +4,7 @@
 function getAuthHeaders() {
   const token = localStorage.getItem("token");
   if (!token) {
-    window.location.href = "login.html";
+    window.location.href = "index.html";
     return {};
   }
   return {
@@ -25,12 +25,6 @@ async function cargarOfertas() {
 
     if (!resp.ok) {
       console.error("Error al obtener ofertas:", resp.status);
-
-      if (resp.status === 401 || resp.status === 403) {
-        alert("Tu sesión ha expirado. Inicia sesión nuevamente.");
-        localStorage.removeItem("token");
-        window.location.href = "https://redvial.site";
-      }
       return;
     }
 
@@ -49,9 +43,23 @@ async function cargarOfertas() {
       return;
     }
 
-    // Construcción dinámica de las filas
     data.forEach(o => {
       const tr = document.createElement("tr");
+      let buttonHTML = `
+        <button class="btn btn-sm btn-success" onclick="aceptarOferta(${o.id})">
+          Aceptar y Contactar
+        </button>
+      `;
+
+      // Si la oferta ya está aceptada, deshabilitamos el botón
+      if (o.aceptada) {
+        buttonHTML = `
+          <button class="btn btn-sm btn-secondary" disabled>
+            Oferta ya aceptada
+          </button>
+        `;
+      }
+
       tr.innerHTML = `
         <td>${o.id}</td>
         <td>${o.titulo}</td>
@@ -59,11 +67,7 @@ async function cargarOfertas() {
         <td>${o.destino}</td>
         <td>${o.salario}</td>
         <td>${o.telefonoContacto ?? "N/A"}</td>
-        <td>
-          <button class="btn btn-sm btn-danger" onclick="eliminarOferta(${o.id})">
-            Eliminar
-          </button>
-        </td>
+        <td>${buttonHTML}</td>
       `;
       tbody.appendChild(tr);
     });
@@ -72,6 +76,7 @@ async function cargarOfertas() {
     console.error("Error en cargarOfertas():", e);
   }
 }
+
 
 // ===============================
 //   CREAR OFERTA
@@ -109,7 +114,6 @@ async function crearOferta() {
 
     alert("Oferta creada correctamente.");
 
-    // Limpiar formulario
     document.getElementById("of_titulo").value = "";
     document.getElementById("of_origen").value = "";
     document.getElementById("of_destino").value = "";
@@ -125,27 +129,8 @@ async function crearOferta() {
 }
 
 // ===============================
-//   ELIMINAR OFERTA
+//   NUEVO: ACEPTAR OFERTA
 // ===============================
-async function eliminarOferta(id) {
-  if (!confirm("¿Seguro que quieres eliminar esta oferta?")) return;
-
-  try {
-    const resp = await fetch(`/api/ofertas/${id}`, {
-      method: "DELETE",
-      headers: getAuthHeaders()
-    });
-
-    if (!resp.ok) {
-      console.error("Error eliminando oferta:", resp.status);
-      alert("Error al eliminar la oferta.");
-      return;
-    }
-
-    cargarOfertas();
-
-  } catch (e) {
-    console.error("Error en eliminarOferta():", e);
-    alert("No se pudo eliminar. Intenta nuevamente.");
-  }
+function aceptarOferta(id) {
+  window.location.href = "contact-offer.html?id=" + id;
 }
