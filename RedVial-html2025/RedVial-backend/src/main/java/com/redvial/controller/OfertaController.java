@@ -25,11 +25,21 @@ public class OfertaController {
     }
 
     // ===============================
-    //     LISTAR OFERTAS (PUBLICO)
+    //     LISTAR OFERTAS
     // ===============================
     @GetMapping
     public List<Oferta> listar() {
         return repo.findAll();
+    }
+
+    // ===============================
+    //    OBTENER OFERTA POR ID
+    // ===============================
+    @GetMapping("/{id}")
+    public ResponseEntity<?> obtenerPorId(@PathVariable Long id) {
+        return repo.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     // ===============================
@@ -38,16 +48,13 @@ public class OfertaController {
     @PostMapping
     public ResponseEntity<?> crear(@RequestBody Oferta o, Authentication authentication) {
         try {
-            // Asignar propietario si está logueado
             if (authentication != null) {
                 String correo = authentication.getName();
                 Optional<Usuario> u = usuarioRepo.findByCorreo(correo);
                 u.ifPresent(o::setPropietario);
             }
 
-            // ✓ teléfonoContacto ya viene en el JSON y se guarda automáticamente
             Oferta saved = repo.save(o);
-
             return ResponseEntity.ok(saved);
 
         } catch (Exception e) {
@@ -56,6 +63,39 @@ public class OfertaController {
                     .body("Error al crear oferta: " + e.getMessage());
         }
     }
+
+    // ===============================
+//   ACEPTAR OFERTA (BLOQUEO)
+// ===============================
+@PostMapping("/{id}/aceptar")
+public ResponseEntity<?> aceptarOferta(@PathVariable Long id, Authentication authentication) {
+    Optional<Oferta> opt = repo.findById(id);
+    if (opt.isEmpty())
+        return ResponseEntity.notFound().build();
+
+    Oferta oferta = opt.get();
+
+    // Verificar si la oferta ya fue aceptada
+    if (oferta.isAceptada()) {
+        return ResponseEntity.status(409).body("La oferta ya fue aceptada por otro usuario.");
+    }
+
+    // Verificar si el usuario está autenticado
+    if (authentication == null) {
+        return ResponseEntity.status(401).body("Debes iniciar sesión para aceptar una oferta.");
+    }
+
+    String correo = authentication.getName();
+    Usuario usuario = usuarioRepo.findByCorreo(correo).orElseThrow();
+
+    oferta.setAceptada(true);
+    oferta.setAceptadaPor(usuario);  // El usuario que aceptó
+
+    repo.save(oferta);  // Guardar la oferta como aceptada
+
+    return ResponseEntity.ok("Oferta aceptada correctamente.");
+}
+
 
     // ===============================
     //     ELIMINAR OFERTA
@@ -69,7 +109,6 @@ public class OfertaController {
 
         Oferta oferta = opt.get();
 
-        // Si no está logueado, borrar sin restricciones (tu lógica original)
         if (authentication == null) {
             repo.deleteById(id);
             return ResponseEntity.ok().build();
