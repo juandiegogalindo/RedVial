@@ -1,37 +1,34 @@
 async function enviarFormularioContacto(event) {
   event.preventDefault();
 
-  const form = document.getElementById("contactForm");
+  const asunto = document.querySelector("input[name='subject']").value.trim();
+  const mensaje = document.querySelector("textarea[name='message']").value.trim();
 
-  const nombre  = form.querySelector('input[name="name"]').value.trim();
-  const asunto  = form.querySelector('input[name="subject"]').value.trim();
-  const mensaje = form.querySelector('textarea[name="message"]').value.trim();
-
-  if (!nombre || !asunto || !mensaje) {
-    alert("Por favor completa todos los campos.");
+  if (!asunto || !mensaje) {
+    alert("Completa todos los campos.");
     return false;
   }
 
-  try {
-    const resp = await fetch("/api/contacto", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nombre, asunto, mensaje })
-    });
+  const token = localStorage.getItem("token");
 
-    if (!resp.ok) {
-      const txt = await resp.text();
-      console.error("Error en contacto:", txt);
-      alert("Ocurrió un error al enviar el mensaje.");
-      return false;
-    }
+  const resp = await fetch("/api/contacto", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + token
+    },
+    body: JSON.stringify({
+      asunto,
+      mensaje
+    })
+  });
 
-    alert("Tu mensaje ha sido enviado correctamente. ¡Gracias!");
-    form.reset();
-    return false;
-  } catch (e) {
-    console.error(e);
-    alert("No se pudo enviar el mensaje, intenta de nuevo.");
+  if (!resp.ok) {
+    alert("Error enviando mensaje.");
     return false;
   }
+
+  alert("Mensaje enviado correctamente.");
+  document.getElementById("contactForm").reset();
+  return false;
 }
