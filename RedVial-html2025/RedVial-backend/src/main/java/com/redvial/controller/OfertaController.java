@@ -4,6 +4,7 @@ import com.redvial.model.Oferta;
 import com.redvial.model.Usuario;
 import com.redvial.repository.OfertaRepository;
 import com.redvial.repository.UsuarioRepository;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -50,8 +51,7 @@ public class OfertaController {
         try {
             if (authentication != null) {
                 String correo = authentication.getName();
-                Optional<Usuario> u = usuarioRepo.findByCorreo(correo);
-                u.ifPresent(o::setPropietario);
+                usuarioRepo.findByCorreo(correo).ifPresent(o::setPropietario);
             }
 
             Oferta saved = repo.save(o);
@@ -65,40 +65,37 @@ public class OfertaController {
     }
 
     // ===============================
-//   ACEPTAR OFERTA (BLOQUEO)
-// ===============================
-@PostMapping("/{id}/aceptar")
-public ResponseEntity<?> aceptarOferta(@PathVariable Long id, Authentication authentication) {
-    Optional<Oferta> opt = repo.findById(id);
-    if (opt.isEmpty())
-        return ResponseEntity.notFound().build();
+    //   ACEPTAR OFERTA
+    // ===============================
+    @PostMapping("/{id}/aceptar")
+    public ResponseEntity<?> aceptarOferta(@PathVariable Long id, Authentication authentication) {
+        Optional<Oferta> opt = repo.findById(id);
+        if (opt.isEmpty())
+            return ResponseEntity.notFound().build();
 
-    Oferta oferta = opt.get();
+        Oferta oferta = opt.get();
 
-    // Verificar si la oferta ya fue aceptada
-    if (oferta.isAceptada()) {
-        return ResponseEntity.status(409).body("La oferta ya fue aceptada por otro usuario.");
+        if (oferta.isAceptada()) {
+            return ResponseEntity.status(409).body("La oferta ya fue aceptada por otro usuario.");
+        }
+
+        if (authentication == null) {
+            return ResponseEntity.status(401).body("Debes iniciar sesión para aceptar una oferta.");
+        }
+
+        String correo = authentication.getName();
+        Usuario usuario = usuarioRepo.findByCorreo(correo).orElseThrow();
+
+        oferta.setAceptada(true);
+        oferta.setAceptadaPor(usuario);
+
+        repo.save(oferta);
+
+        return ResponseEntity.ok("Oferta aceptada correctamente.");
     }
-
-    // Verificar si el usuario está autenticado
-    if (authentication == null) {
-        return ResponseEntity.status(401).body("Debes iniciar sesión para aceptar una oferta.");
-    }
-
-    String correo = authentication.getName();
-    Usuario usuario = usuarioRepo.findByCorreo(correo).orElseThrow();
-
-    oferta.setAceptada(true);
-    oferta.setAceptadaPor(usuario);  // El usuario que aceptó
-
-    repo.save(oferta);  // Guardar la oferta como aceptada
-
-    return ResponseEntity.ok("Oferta aceptada correctamente.");
-}
-
 
     // ===============================
-    //     ELIMINAR OFERTA
+    //   ELIMINAR OFERTA (ADMIN / PROPIETARIO)
     // ===============================
     @DeleteMapping("/{id}")
     public ResponseEntity<?> borrar(@PathVariable Long id, Authentication authentication) {
@@ -107,11 +104,12 @@ public ResponseEntity<?> aceptarOferta(@PathVariable Long id, Authentication aut
         if (opt.isEmpty())
             return ResponseEntity.notFound().build();
 
+        // La oferta existe
         Oferta oferta = opt.get();
 
+        // Si no está autenticado → NO eliminar
         if (authentication == null) {
-            repo.deleteById(id);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.status(401).body("No estás autenticado.");
         }
 
         String correo = authentication.getName();
@@ -126,6 +124,6 @@ public ResponseEntity<?> aceptarOferta(@PathVariable Long id, Authentication aut
         }
 
         repo.deleteById(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Oferta eliminada correctamente.");
     }
 }
