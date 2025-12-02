@@ -1,6 +1,6 @@
 package com.redvial.config;
 
-import com.redvial.security.JwtAuthFilter;
+import com.redvial.security.JwtAuthenticationFilter;
 import com.redvial.security.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,10 +23,10 @@ import java.util.List;
 public class SecurityConfig {
 
     private final UserDetailsServiceImpl userDetailsService;
-    private final JwtAuthFilter jwtAuthFilter;
+    private final JwtAuthenticationFilter jwtAuthFilter;
 
     public SecurityConfig(UserDetailsServiceImpl userDetailsService,
-                          JwtAuthFilter jwtAuthFilter) {
+                          JwtAuthenticationFilter jwtAuthFilter) {
         this.userDetailsService = userDetailsService;
         this.jwtAuthFilter = jwtAuthFilter;
     }
