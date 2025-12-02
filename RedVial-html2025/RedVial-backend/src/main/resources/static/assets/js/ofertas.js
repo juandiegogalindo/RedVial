@@ -18,6 +18,9 @@ function getAuthHeaders() {
 // ===============================
 async function cargarOfertas() {
   try {
+    const token = localStorage.getItem("token");
+    const rol = localStorage.getItem("rol"); // <-- IMPORTANTE
+
     const resp = await fetch("/api/ofertas", {
       method: "GET",
       headers: getAuthHeaders()
@@ -45,17 +48,26 @@ async function cargarOfertas() {
 
     data.forEach(o => {
       const tr = document.createElement("tr");
+
+      // Botón estándar
       let buttonHTML = `
         <button class="btn btn-sm btn-success" onclick="aceptarOferta(${o.id})">
           Aceptar y Contactar
         </button>
       `;
 
-      // Si la oferta ya está aceptada, deshabilitamos el botón
       if (o.aceptada) {
         buttonHTML = `
-          <button class="btn btn-sm btn-secondary" disabled>
-            Oferta ya aceptada
+          <button class="btn btn-sm btn-secondary" disabled>Oferta ya aceptada</button>
+        `;
+      }
+
+      // Si ES ADMIN → añadir botón rojo de eliminar
+      let adminDeleteButton = "";
+      if (rol === "ROLE_ADMIN") {
+        adminDeleteButton = `
+          <button class="btn btn-sm btn-danger ms-2" onclick="eliminarOferta(${o.id})">
+            🗑 Eliminar
           </button>
         `;
       }
@@ -67,8 +79,9 @@ async function cargarOfertas() {
         <td>${o.destino}</td>
         <td>${o.salario}</td>
         <td>${o.telefonoContacto ?? "N/A"}</td>
-        <td>${buttonHTML}</td>
+        <td>${buttonHTML} ${adminDeleteButton}</td>
       `;
+
       tbody.appendChild(tr);
     });
 
@@ -76,7 +89,6 @@ async function cargarOfertas() {
     console.error("Error en cargarOfertas():", e);
   }
 }
-
 
 // ===============================
 //   CREAR OFERTA
@@ -124,7 +136,6 @@ async function crearOferta() {
 
   } catch (e) {
     console.error("Error en crearOferta():", e);
-    alert("No se pudo crear la oferta. Intenta nuevamente.");
   }
 }
 
@@ -133,4 +144,30 @@ async function crearOferta() {
 // ===============================
 function aceptarOferta(id) {
   window.location.href = "contact-offer.html?id=" + id;
+}
+
+// ===============================
+//   NUEVO: ELIMINAR OFERTA (ADMIN)
+// ===============================
+async function eliminarOferta(id) {
+  const confirmar = confirm("¿Seguro que deseas eliminar esta oferta?");
+  if (!confirmar) return;
+
+  try {
+    const resp = await fetch(`/api/ofertas/${id}`, {
+      method: "DELETE",
+      headers: getAuthHeaders()
+    });
+
+    if (!resp.ok) {
+      alert("Error al eliminar la oferta.");
+      return;
+    }
+
+    alert("Oferta eliminada con éxito.");
+    cargarOfertas();
+
+  } catch (e) {
+    console.error("Error en eliminarOferta():", e);
+  }
 }
