@@ -126,6 +126,7 @@
 
       const data = await resp.json();
       localStorage.setItem("token", data.token);
+      localStorage.setItem("rol", data.rol); 
 
       alert("Bienvenido administrador");
       window.location.href = "PaginaPrincipal.html"; // CREA ESTA PÁGINA LUEGO
