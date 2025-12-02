@@ -124,6 +124,11 @@ public class AuthController {
             return ResponseEntity.status(403).body("Debes verificar tu correo.");
         }
 
+        if (usuario.getRol() == Role.ROLE_ADMIN) {
+        return ResponseEntity.status(403)
+                .body("Los administradores deben iniciar sesión desde el acceso especial.");
+        }
+
         try {
             authManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
