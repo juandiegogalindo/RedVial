@@ -89,7 +89,8 @@
     <div class="glow glow2"></div>
   </div>
 
-  <div class="login-card">
+  <<div class="login-card" id="admin-form" style="display:none;">
+
     <center>
       <img src="assets/img/redVial-logoTransparente.png" width="100">
     </center>
@@ -130,5 +131,24 @@
       window.location.href = "PaginaPrincipal.html"; // CREA ESTA PÁGINA LUEGO
     }
   </script>
+  <script>
+  const ADMIN_CODE = "REDVIAL-admin123*"; // cambia este código por tu clave real
+
+  function validateAdminCode() {
+    const code = prompt("Ingrese el código de seguridad para administradores:");
+
+    if (code === ADMIN_CODE) {
+      // Mostrar formulario
+      document.getElementById("admin-form").style.display = "block";
+    } else {
+      alert("Código incorrecto. Acceso denegado.");
+      window.location.href = "login.html";
+    }
+  }
+
+  // Ejecutar al cargar la página
+  window.onload = validateAdminCode;
+</script>
+
 </body>
 </html>
