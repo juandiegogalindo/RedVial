@@ -1,8 +1,12 @@
-// reportes.js
-
+// ================================
+//   CARGAR REPORTES
+// ================================
 async function cargarReportes() {
   try {
     const token = localStorage.getItem("token");
+    const rol = localStorage.getItem("rol");
+    const esAdmin = rol === "ROLE_ADMIN";
+
     if (!token) {
       window.location.href = "login.html";
       return;
@@ -10,9 +14,7 @@ async function cargarReportes() {
 
     const resp = await fetch("/api/reportes", {
       method: "GET",
-      headers: {
-        "Authorization": "Bearer " + token
-      }
+      headers: { "Authorization": "Bearer " + token }
     });
 
     if (!resp.ok) {
@@ -31,12 +33,21 @@ async function cargarReportes() {
 
     data.forEach(r => {
       const div = document.createElement("div");
-      div.className = "border rounded p-3 mb-3";
+      div.className = "border rounded p-3 mb-3 position-relative";
+
       div.innerHTML = `
+        ${esAdmin ? `
+          <button class="btn btn-sm btn-danger position-absolute"
+                  style="top:10px; right:10px;"
+                  onclick="eliminarReporte(${r.id})">
+            <i class="bi bi-trash-fill"></i>
+          </button>` : ""}
+
         <h5>${r.titulo}</h5>
         <p class="mb-1"><strong>Ubicación:</strong> ${r.ubicacion}</p>
         <p>${r.descripcion}</p>
       `;
+
       cont.appendChild(div);
     });
 
@@ -45,6 +56,10 @@ async function cargarReportes() {
   }
 }
 
+
+// ================================
+//   CREAR REPORTE
+// ================================
 async function crearReporte() {
   const titulo      = document.getElementById("rep_titulo").value.trim();
   const ubicacion   = document.getElementById("rep_ubicacion").value.trim();
@@ -78,11 +93,33 @@ async function crearReporte() {
 
   alert("Reporte enviado");
 
-  // limpiar campos
+  // Limpiar campos
   document.getElementById("rep_titulo").value = "";
   document.getElementById("rep_ubicacion").value = "";
   document.getElementById("rep_descripcion").value = "";
 
-  // recargar todos
+  cargarReportes();
+}
+
+
+// ================================
+//   ELIMINAR REPORTE (SOLO ADMIN)
+// ================================
+async function eliminarReporte(id) {
+  if (!confirm("¿Seguro que deseas eliminar este reporte?")) return;
+
+  const token = localStorage.getItem("token");
+
+  const resp = await fetch(`/api/reportes/${id}`, {
+    method: "DELETE",
+    headers: { "Authorization": "Bearer " + token }
+  });
+
+  if (!resp.ok) {
+    alert("No tienes permisos para eliminar.");
+    return;
+  }
+
+  alert("Reporte eliminado.");
   cargarReportes();
 }
