@@ -10,15 +10,19 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import org.springframework.http.HttpMethod;
 
 import java.util.List;
 
@@ -35,7 +39,7 @@ public class SecurityConfig {
     }
 
     // ============================
-    //  JWT FILTER BEAN
+    // JWT FILTER
     // ============================
     @Bean
     public JwtAuthenticationFilter jwtAuthFilter() {
@@ -43,7 +47,7 @@ public class SecurityConfig {
     }
 
     // ============================
-    //  PROVIDER
+    // AUTH PROVIDER
     // ============================
     @Bean
     public DaoAuthenticationProvider authProvider() {
@@ -54,7 +58,7 @@ public class SecurityConfig {
     }
 
     // ============================
-    //  CORS ABIERTO
+    // CORS
     // ============================
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
@@ -118,13 +122,16 @@ public class SecurityConfig {
     }
 
     // ============================
-    //  BEANS EXTRA
+    // PASSWORD ENCODER
     // ============================
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    // ============================
+    // AUTH MANAGER
+    // ============================
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
