@@ -1,30 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
-  
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Reportes - Red Vial</title>
-  <meta name="description" content="Conoce los servicios que Red Vial ofrece para mejorar la seguridad y el bienestar de los camioneros en carretera.">
-  <meta name="keywords" content="seguridad vial, camioneros, reportes de carretera, empleo transporte, red vial">
 
-  <!-- Favicons -->
-   <link href="assets/img/redVial-logoTransparente.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
+  <link href="assets/img/redVial-logoTransparente.png" rel="icon">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 </head>
 
@@ -59,25 +43,17 @@
     <div class="page-title dark-background" style="background-image: url(assets/img/redVial-logoPortada.png);">
       <div class="container position-relative">
         <h1>Reporte</h1>
-        <p>En esta sección nuestro cliente va a poder postear cada accidente, evento, recomendaciones o demas que puedan haber en la via, es un espacio libre para comentar donde no seras juzgado.</p>
-        <nav class="breadcrumbs">
-          <ol>
-            <li><a href="PaginaPrincipal.html">Inicio</a></li>
-            <li class="current">Reporte</li>
-          </ol>
-        </nav>
+        <p>Comparte accidentes, novedades o recomendaciones en la vía.</p>
       </div>
-    </div><!-- End Page Title -->
+    </div>
 
-  <!-- Contenido principal -->
-  <main class="main">
-
-    <!-- Un poco de espacio debajo del header -->
+    <!-- Contenido -->
     <section class="section" style="padding-top: 120px;">
       <div class="container">
 
         <div class="row gy-4">
-          <!-- Columna formulario -->
+
+          <!-- Crear reporte -->
           <div class="col-lg-5">
             <div class="card shadow-sm">
               <div class="card-body">
@@ -93,30 +69,28 @@
 
                 <div class="mb-3">
                   <label class="form-label">Ubicación</label>
-                  <input id="rep_ubicacion" type="text" class="form-control" placeholder="Ej: Vía a la calera">
+                  <input id="rep_ubicacion" type="text" class="form-control" placeholder="Ej: Vía a la Calera">
                 </div>
 
                 <div class="mb-3">
                   <label class="form-label">Descripción</label>
                   <textarea id="rep_descripcion" rows="4" class="form-control"
-                            placeholder="Describe brevemente lo que está pasando en la vía..."></textarea>
+                            placeholder="Describe lo que ocurre..."></textarea>
                 </div>
 
                 <button class="btn btn-warning w-100" onclick="crearReporte()">
-                  <i class="bi bi-send-fill me-1"></i>
-                  Enviar reporte
+                  <i class="bi bi-send-fill me-1"></i> Enviar reporte
                 </button>
               </div>
             </div>
           </div>
 
-          <!-- Columna lista de reportes -->
+          <!-- Lista reportes -->
           <div class="col-lg-7">
             <h3 class="mb-3">Reportes recientes</h3>
-            <div id="lista-reportes">
-              <!-- Se llena por JS (reportes.js) -->
-            </div>
+            <div id="lista-reportes"></div>
           </div>
+
         </div>
 
       </div>
@@ -124,15 +98,10 @@
 
   </main>
 
-  <!-- JS de vendors -->
+  <!-- Scripts -->
   <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/assets/vendor/aos/aos.js"></script>
-  <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="/assets/js/main.js"></script>
-
-  <!-- Nuestros JS -->
   <script src="/assets/js/auth.js"></script>
   <script src="/assets/js/reportes.js"></script>
+
 </body>
 </html>
