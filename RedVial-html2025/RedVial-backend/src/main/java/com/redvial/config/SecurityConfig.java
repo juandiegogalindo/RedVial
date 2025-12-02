@@ -70,7 +70,7 @@ public class SecurityConfig {
     }
 
     // ============================
-    //  SECURITY FILTER CHAIN
+    // SECURITY FILTER CHAIN
     // ============================
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -80,22 +80,38 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                    // permitir registro, login y verificación sin token
-                    .requestMatchers(
-                            "/api/auth/**",
-                            "/api/registro/**"
-                    ).permitAll()
 
-                    // TODO: proteger ofertas y contacto correctamente luego
-                    .requestMatchers("/api/ofertas/**").authenticated()
-                    .requestMatchers("/api/contacto/**").authenticated()
+                // ======================================
+                //  PERMITIDOS SIN TOKEN (LOGIN / REGISTRO)
+                // ======================================
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/registro/**").permitAll()
 
-                    // lo demás permitido (HTML, CSS, JS)
-                    .anyRequest().permitAll()
+                // =================================================
+                //  🔥 CAMBIO IMPORTANTE:
+                //  GET de ofertas → público (para que cargue listado)
+                // =================================================
+                .requestMatchers(HttpMethod.GET, "/api/ofertas/**").permitAll()
+
+                // =================================================
+                //  El resto de métodos de ofertas → requieren login
+                //  (POST, DELETE, aceptar, etc.)
+                // =================================================
+                .requestMatchers("/api/ofertas/**").authenticated()
+
+                // =================================================
+                // CONTACTO → requiere estar logueado (como antes)
+                // =================================================
+                .requestMatchers("/api/contacto/**").authenticated()
+
+                // ======================================
+                //  TODO LO DEMÁS → PERMITIDO (HTML, CSS, JS)
+                // ======================================
+                .anyRequest().permitAll()
             )
             .authenticationProvider(authProvider())
 
-            // AÑADIMOS TU FILTRO JWT
+            // Filtro JWT antes que el UsernamePasswordAuthenticationFilter
             .addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
