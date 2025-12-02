@@ -147,6 +147,50 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/loginAdmin")
+    public ResponseEntity<?> loginAdmin(@RequestBody AuthRequest r) {
+
+    Optional<Usuario> opt = repo.findByCorreo(r.getCorreo());
+    if (opt.isEmpty()) {
+        return ResponseEntity.status(401).body("Credenciales incorrectas");
+    }
+
+    Usuario usuario = opt.get();
+
+    // 🔹 Debe estar verificado
+    if (!usuario.isVerificado()) {
+        return ResponseEntity.status(403).body("Debes verificar tu correo.");
+    }
+
+    // 🔹 VALIDAR QUE SEA ADMINISTRADOR
+    if (usuario.getRol() != Role.ROLE_ADMIN) {
+        return ResponseEntity.status(403).body("No tienes permisos de administrador.");
+    }
+
+    try {
+        authManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        r.getCorreo(),
+                        r.getPassword()
+                )
+        );
+
+        String token = jwtUtil.generateToken(usuario.getCorreo());
+
+        return ResponseEntity.ok(
+                new AuthResponse(
+                        token,
+                        usuario.getId(),
+                        usuario.getRol().name()
+                )
+        );
+
+    } catch (AuthenticationException e) {
+        return ResponseEntity.status(401).body("Credenciales incorrectas");
+    }
+}
+
+
     // =====================================================
     // CONFIRMAR VERIFICACIÓN
     // =====================================================
