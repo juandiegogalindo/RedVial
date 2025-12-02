@@ -179,11 +179,11 @@
 
     <div class="signup">
       <a href="registro.html">¿No tienes cuenta? Regístrate</a>
+    </div>  
+    <div class="signup admin-link" style="margin-top: 10px;">
+      <a href="loginAdmin.html">Administradores</a>
     </div>
-  </div>
-  <div class="signup" style="margin-top: 10px;">
-  <a href="#" onclick="adminAccess()">Administradores</a>
-</div>
+  </div>                                                                                  
 
   <script>
     async function login() {
@@ -208,19 +208,5 @@
       window.location.href = "PaginaPrincipal.html";
     }
   </script>
-
-  <script>
-  const ADMIN_CODE = "REDVIAL-admin123*";
-
-  function adminAccess() {
-    const code = prompt("Ingrese el código de seguridad para administradores:");
-
-    if (code === ADMIN_CODE) {
-      window.location.href = "loginAdmin.html";
-    } else {
-      alert("Código incorrecto. Acceso denegado.");
-    }
-  }
-</script>
 </body>
 </html>
