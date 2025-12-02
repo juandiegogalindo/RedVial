@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Administrador - Red Vial</title>
+  <link href="assets/img/redVial-logoTransparente.png" rel="icon">
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .background-effects {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .glow {
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      filter: blur(150px);
+      opacity: 0.5;
+      animation: float 8s infinite alternate ease-in-out;
+    }
+
+    .glow1 { background: #ff7b00; top: 5%; left: 10%; }
+    .glow2 { background: #ff7b00; top: 50%; right: 10%; }
+
+    .login-card {
+      width: 350px;
+      margin: 120px auto;
+      background: #000;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(255,200,0,0.15);
+      color: white;
+    }
+
+    .login-card h2 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 12px;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid #ffae00;
+      color: white;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(90deg, #ffaa00, #ff5500);
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Fondo -->
+  <div class="background-effects">
+    <div class="glow glow1"></div>
+    <div class="glow glow2"></div>
+  </div>
+
+  <div class="login-card">
+    <center>
+      <img src="assets/img/redVial-logoTransparente.png" width="100">
+    </center>
+
+    <h2>Acceso Administrador</h2>
+
+    <div class="input-wrapper">
+      <input type="email" id="correoAdmin" class="input-field" required placeholder="Correo administrador">
+    </div>
+
+    <div class="input-wrapper">
+      <input type="password" id="passwordAdmin" class="input-field" required placeholder="Contraseña">
+    </div>
+
+    <button class="login-btn" onclick="loginAdmin()">Ingresar</button>
+  </div>
+
+  <script>
+    async function loginAdmin() {
+      const correo = document.getElementById("correoAdmin").value;
+      const password = document.getElementById("passwordAdmin").value;
+
+      const resp = await fetch("/api/auth/loginAdmin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ correo, password })
+      });
+
+      if (!resp.ok) {
+        alert("Credenciales incorrectas o no tiene permisos de administrador.");
+        return;
+      }
+
+      const data = await resp.json();
+      localStorage.setItem("token", data.token);
+
+      alert("Bienvenido administrador");
+      window.location.href = "PaginaPrincipal.html"; // CREA ESTA PÁGINA LUEGO
+    }
+  </script>
+</body>
+</html>
