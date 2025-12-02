@@ -10,18 +10,23 @@ async function enviarFormularioContacto(event) {
 
   const form = document.getElementById("contactForm");
 
+  // SOLO enviamos asunto y mensaje
   const data = {
-    nombre: form.name.value.trim(),
     asunto: form.subject.value.trim(),
     mensaje: form.message.value.trim()
   };
+
+  if (!data.asunto || !data.mensaje) {
+    alert("Completa todos los campos.");
+    return false;
+  }
 
   try {
     const resp = await fetch("/api/contacto", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + token   // 👈 EL TOKEN DEBE IR AQUÍ
+        "Authorization": "Bearer " + token
       },
       body: JSON.stringify(data)
     });
