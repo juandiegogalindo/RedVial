@@ -6,12 +6,16 @@ import com.redvial.security.UserDetailsServiceImpl;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import org.springframework.http.HttpMethod;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -21,8 +25,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import org.springframework.http.HttpMethod;
 
 import java.util.List;
 
@@ -39,7 +41,7 @@ public class SecurityConfig {
     }
 
     // ============================
-    // JWT FILTER
+    //  JWT FILTER
     // ============================
     @Bean
     public JwtAuthenticationFilter jwtAuthFilter() {
@@ -47,7 +49,7 @@ public class SecurityConfig {
     }
 
     // ============================
-    // AUTH PROVIDER
+    //  PROVIDER
     // ============================
     @Bean
     public DaoAuthenticationProvider authProvider() {
@@ -58,23 +60,29 @@ public class SecurityConfig {
     }
 
     // ============================
-    // CORS
+    //  CORS CONFIG
     // ============================
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
+
         CorsConfiguration config = new CorsConfiguration();
+
         config.setAllowedOriginPatterns(List.of("*"));
-        config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
+        config.setAllowedMethods(List.of(
+                "GET", "POST", "PUT", "DELETE", "OPTIONS"
+        ));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+
         source.registerCorsConfiguration("/**", config);
         return source;
     }
 
     // ============================
-    // SECURITY FILTER CHAIN
+    //  SECURITY CHAIN FINAL
     // ============================
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -83,55 +91,42 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth
 
-                // ======================================
-                //  PERMITIDOS SIN TOKEN (LOGIN / REGISTRO)
-                // ======================================
+            .authorizeHttpRequests(auth -> auth
+                // 1) Login / Registro / Confirmación → público
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/registro/**").permitAll()
 
-                // =================================================
-                //  🔥 CAMBIO IMPORTANTE:
-                //  GET de ofertas → público (para que cargue listado)
-                // =================================================
+                // 2) GET de ofertas → PÚBLICO
+                //    para que el frontend pueda listar sin token
                 .requestMatchers(HttpMethod.GET, "/api/ofertas/**").permitAll()
 
-                // =================================================
-                //  El resto de métodos de ofertas → requieren login
-                //  (POST, DELETE, aceptar, etc.)
-                // =================================================
+                // 3) POST / DELETE / aceptar oferta → requiere login
                 .requestMatchers("/api/ofertas/**").authenticated()
 
-                // =================================================
-                // CONTACTO → requiere estar logueado (como antes)
-                // =================================================
+                // 4) Contacto requiere login (para enviar mensaje y saber quién escribe)
                 .requestMatchers("/api/contacto/**").authenticated()
 
-                // ======================================
-                //  TODO LO DEMÁS → PERMITIDO (HTML, CSS, JS)
-                // ======================================
+                // 5) TODO LO DEMÁS → permitido
                 .anyRequest().permitAll()
             )
+
             .authenticationProvider(authProvider())
 
-            // Filtro JWT antes que el UsernamePasswordAuthenticationFilter
+            // Añadimos JWT
             .addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
     // ============================
-    // PASSWORD ENCODER
+    // PASSWORD + AUTH MANAGER
     // ============================
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // ============================
-    // AUTH MANAGER
-    // ============================
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
