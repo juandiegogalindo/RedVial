@@ -18,13 +18,10 @@ function getAuthHeaders() {
 // ===============================
 async function cargarOfertas() {
   try {
-    const token = localStorage.getItem("token");
-    const rol = localStorage.getItem("rol"); // <-- IMPORTANTE
+    const rol = localStorage.getItem("rol");
 
-    const resp = await fetch("/api/ofertas", {
-      method: "GET",
-      headers: getAuthHeaders()
-    });
+    // GET SIN TOKEN
+    const resp = await fetch("/api/ofertas");
 
     if (!resp.ok) {
       console.error("Error al obtener ofertas:", resp.status);
@@ -49,7 +46,6 @@ async function cargarOfertas() {
     data.forEach(o => {
       const tr = document.createElement("tr");
 
-      // Botón estándar
       let buttonHTML = `
         <button class="btn btn-sm btn-success" onclick="aceptarOferta(${o.id})">
           Aceptar y Contactar
@@ -62,7 +58,6 @@ async function cargarOfertas() {
         `;
       }
 
-      // Si ES ADMIN → añadir botón rojo de eliminar
       let adminDeleteButton = "";
       if (rol === "ROLE_ADMIN") {
         adminDeleteButton = `
@@ -89,6 +84,7 @@ async function cargarOfertas() {
     console.error("Error en cargarOfertas():", e);
   }
 }
+
 
 // ===============================
 //   CREAR OFERTA
