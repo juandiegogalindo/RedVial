@@ -8,11 +8,10 @@
   <link href="assets/img/redVial-logoTransparente.png" rel="icon">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-
   <link href="assets/css/main.css" rel="stylesheet">
 </head>
 
-<body class="service-details-page" onload="requireLogin(); cargarReportes()">
+<body class="service-details-page">
 
   <!-- Header -->
   <header id="header" class="header d-flex align-items-center fixed-top">
@@ -69,7 +68,11 @@
 
                 <div class="mb-3">
                   <label class="form-label">Ubicación</label>
-                  <input id="rep_ubicacion" type="text" class="form-control" placeholder="Ej: Vía a la Calera">
+                  <input id="rep_ubicacion" 
+                         type="text" 
+                         class="form-control"
+                         placeholder="Selecciona ubicación en el mapa"
+                         autocomplete="off">
                 </div>
 
                 <div class="mb-3">
@@ -98,10 +101,41 @@
 
   </main>
 
+  <!-- Google Maps API -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
+
   <!-- Scripts -->
   <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/assets/js/auth.js"></script>
   <script src="/assets/js/reportes.js"></script>
+
+  <script>
+    function initAutocomplete() {
+      const input = document.getElementById("rep_ubicacion");
+
+      const autocomplete = new google.maps.places.Autocomplete(input, {
+        types: ["geocode"],
+        componentRestrictions: { country: "co" }
+      });
+
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+
+        if (!place.formatted_address) {
+          alert("Selecciona una ubicación válida.");
+          return;
+        }
+
+        input.value = place.formatted_address;
+      });
+    }
+
+    window.onload = function () {
+      requireLogin();
+      cargarReportes();
+      initAutocomplete();
+    };
+  </script>
 
 </body>
 </html>
