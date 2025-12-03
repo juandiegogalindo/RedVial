@@ -18,6 +18,7 @@
       height: 350px;
       border-radius: 10px;
       margin-top: 10px;
+      border: 1px solid #ddd;
     }
   </style>
 </head>
@@ -79,11 +80,13 @@
 
                 <div class="mb-3">
                   <label class="form-label">Ubicación</label>
-                  <input id="rep_ubicacion" 
-                         type="text" 
+                  <input id="rep_ubicacion"
+                         type="text"
                          class="form-control"
                          placeholder="Selecciona ubicación en el mapa"
                          autocomplete="off">
+
+                  <!-- MAPA -->
                   <div id="map"></div>
                 </div>
 
@@ -113,8 +116,8 @@
 
   </main>
 
-  <!-- Google Maps API -->
-  <script src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d635168.097382456!2d-73.89531677145104!3d5.661939179547292!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m3!3m2!1d4.711!2d-74.0721!4m3!3m2!1d7.8939!2d-72.5078!5e0!3m2!1ses!2sco!4v1731430000000!5m2!1ses!2sco"></script>
+  <!-- GOOGLE MAPS API (CORRECTO) -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY_AQUI&libraries=places"></script>
 
   <!-- Scripts -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -125,7 +128,7 @@
   <script>
     let map, marker, geocoder;
 
-    function initMapPicker() {
+    function initMap() {
       map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: 4.710989, lng: -74.072090 }, // Bogotá
         zoom: 12,
@@ -134,34 +137,36 @@
       geocoder = new google.maps.Geocoder();
 
       map.addListener("click", (event) => {
-        placeMarker(event.latLng);
-        getAddress(event.latLng);
+        colocarMarcador(event.latLng);
+        obtenerDireccion(event.latLng);
       });
     }
 
-    function placeMarker(location) {
+    function colocarMarcador(latlng) {
       if (marker) marker.setMap(null);
 
       marker = new google.maps.Marker({
-        position: location,
-        map: map,
+        position: latlng,
+        map: map
       });
     }
 
-    function getAddress(latlng) {
+    function obtenerDireccion(latlng) {
       geocoder.geocode({ location: latlng }, (results, status) => {
         if (status === "OK" && results[0]) {
-          document.getElementById("rep_ubicacion").value = results[0].formatted_address;
+          document.getElementById("rep_ubicacion").value =
+            results[0].formatted_address;
         } else {
           alert("No se pudo obtener la dirección.");
         }
       });
     }
 
+    // Integración con tu sistema
     window.onload = function () {
       requireLogin();
       cargarReportes();
-      initMapPicker();
+      initMap();
     };
   </script>
 
