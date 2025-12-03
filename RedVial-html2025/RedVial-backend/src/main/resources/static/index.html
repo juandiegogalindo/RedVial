@@ -18,6 +18,28 @@
       font-family: Arial, sans-serif;
       overflow: hidden;
     }
+       /* Enlace arriba a la derecha */
+    .top-right-link {
+      position: fixed;      /* fijo en la pantalla */
+      top: 12px;            /* separación desde arriba */
+      right: 12px;          /* separación desde la derecha */
+      z-index: 2000;        /* por encima de todo */
+      background: rgba(255,255,255,0.06);
+      color: #dd7f13;
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      border: 1px solid rgba(221,127,19,0.15);
+      transition: transform .15s, box-shadow .15s, background .15s;
+      backdrop-filter: blur(6px);
+    }
+
+    .top-right-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+      background: rgba(255,255,255,0.08);
+    }
 
     /* Fondo con luces */
     .background-effects {
@@ -110,6 +132,7 @@
       color: #aaa;
       transition: 0.3s;
       pointer-events: none;
+  
     }
 
     input:focus + label,
@@ -136,7 +159,7 @@
       transform: scale(1.03);
       box-shadow: 0 0 15px #00eaff;
     }
-
+.
     /* Registro */
     .signup {
       text-align: center;
@@ -146,15 +169,7 @@
     .signup a {
       color: #dd7f13;
     }
-    <a href="https://www.eltiempo.com" class="link-derecha">Mi enlace</a>
-
-<style>
-.link-derecha {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-</style>
+  
   </style>
   
 </head>
@@ -167,20 +182,22 @@
     <div class="glow glow2"></div>
     <div class="glow glow3"></div>
   </div>
- <div class="glow glow4" style="margin-top: 10px;">
-         <a href="https://www.eltiempo.com">Tiempo</a>
-    </div
+  
   <div class="login-card">
     <div class="redVial-logoTransparente">
       <center><img src="assets/img/redVial-logoTransparente.png" width="100" alt="" data-aos="fade-in"></center>   
     </div>
+    
     <h2>Accede a tu cuenta</h2>
     <!-- INPUT CORREO -->
     <div class="input-wrapper">
       <input type="email" id="correo" class="input-field" placeholder=" " required>
       <label for="correo">Correo electrónico</label>
     </div>
-
+    <!-- Link -->
+<div class=".top-right-link">
+    <a href="https://www.eltiempo.com">Tiempo</a>
+    </div>
     <!-- INPUT CONTRASEÑA -->
     <div class="input-wrapper">
       <input type="password" id="password" class="input-field" placeholder=" " required>
