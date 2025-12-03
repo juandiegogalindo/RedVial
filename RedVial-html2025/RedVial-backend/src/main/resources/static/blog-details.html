@@ -9,21 +9,10 @@
   <link href="assets/img/redVial-logoTransparente.png" rel="icon">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-
   <link href="assets/css/main.css" rel="stylesheet">
-
-  <style>
-    #map {
-      width: 100%;
-      height: 350px;
-      border-radius: 10px;
-      margin-top: 10px;
-      border: 1px solid #ddd;
-    }
-  </style>
 </head>
 
-<body class="service-details-page">
+<body class="service-details-page" onload="requireLogin(); cargarReportes();">
 
   <!-- Header -->
   <header id="header" class="header d-flex align-items-center fixed-top">
@@ -69,8 +58,7 @@
             <div class="card shadow-sm">
               <div class="card-body">
                 <h3 class="card-title mb-3">
-                  <i class="bi bi-flag-fill text-warning me-2"></i>
-                  Crear nuevo reporte
+                  <i class="bi bi-flag-fill text-warning me-2"></i> Crear nuevo reporte
                 </h3>
 
                 <div class="mb-3">
@@ -80,14 +68,22 @@
 
                 <div class="mb-3">
                   <label class="form-label">Ubicación</label>
-                  <input id="rep_ubicacion"
-                         type="text"
+                  <input id="rep_ubicacion" 
+                         type="text" 
                          class="form-control"
-                         placeholder="Selecciona ubicación en el mapa"
-                         autocomplete="off">
+                         placeholder="Escribe o pega la ubicación del mapa">
 
-                  <!-- MAPA -->
-                  <div id="map"></div>
+                  <!-- MAPA FIJO (NO USA API KEY, NO FALLA) -->
+                  <div style="width:100%; height:auto; border-radius:10px; overflow:hidden; margin-top:10px;">
+                    <iframe 
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.0092355804227!2d-72.51049942594389!3d7.894101605722344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e664570a2843265%3A0x4ee2aa1487817690!2sCl.%202%20%23771%2C%20Carora%2C%20C%C3%BAcuta%2C%20Norte%20de%20Santander!5e0!3m2!1ses!2sco!4v1764727240345!5m2!1ses!2sco"
+                      width="100%"
+                      height="350"
+                      style="border:0;"
+                      allowfullscreen=""
+                      loading="lazy">
+                    </iframe>
+                  </div>
                 </div>
 
                 <div class="mb-3">
@@ -103,7 +99,7 @@
             </div>
           </div>
 
-          <!-- Lista reportes -->
+          <!-- Lista de reportes -->
           <div class="col-lg-7">
             <h3 class="mb-3">Reportes recientes</h3>
             <div id="lista-reportes"></div>
@@ -116,59 +112,10 @@
 
   </main>
 
-  <!-- GOOGLE MAPS API (CORRECTO) -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY_AQUI&libraries=places"></script>
-
   <!-- Scripts -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/auth.js"></script>
   <script src="assets/js/reportes.js"></script>
-
-  <!-- MAP PICKER -->
-  <script>
-    let map, marker, geocoder;
-
-    function initMap() {
-      map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 4.710989, lng: -74.072090 }, // Bogotá
-        zoom: 12,
-      });
-
-      geocoder = new google.maps.Geocoder();
-
-      map.addListener("click", (event) => {
-        colocarMarcador(event.latLng);
-        obtenerDireccion(event.latLng);
-      });
-    }
-
-    function colocarMarcador(latlng) {
-      if (marker) marker.setMap(null);
-
-      marker = new google.maps.Marker({
-        position: latlng,
-        map: map
-      });
-    }
-
-    function obtenerDireccion(latlng) {
-      geocoder.geocode({ location: latlng }, (results, status) => {
-        if (status === "OK" && results[0]) {
-          document.getElementById("rep_ubicacion").value =
-            results[0].formatted_address;
-        } else {
-          alert("No se pudo obtener la dirección.");
-        }
-      });
-    }
-
-    // Integración con tu sistema
-    window.onload = function () {
-      requireLogin();
-      cargarReportes();
-      initMap();
-    };
-  </script>
 
 </body>
 </html>
