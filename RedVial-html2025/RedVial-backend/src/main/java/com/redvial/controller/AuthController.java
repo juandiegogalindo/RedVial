@@ -267,7 +267,7 @@ public ResponseEntity<String> confirmar(@RequestParam("token") String token) {
     // 3. VALIDAR EXPIRACIÓN DEL TOKEN (1 HORA)
     // =====================================================
     LocalDateTime fecha = u.getFechaRegistro();
-    LocalDateTime expiracion = fecha.plusHours(1); // <-- aquí puedes poner plusMinutes(1) para pruebas
+    LocalDateTime expiracion = fecha.plusMinutes(1); // <-- aquí puedes poner plusHours(1); para pruebas
     LocalDateTime ahora = LocalDateTime.now();
 
     if (expiracion.isBefore(ahora)) {
