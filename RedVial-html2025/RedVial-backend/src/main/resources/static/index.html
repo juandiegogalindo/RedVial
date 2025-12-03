@@ -18,28 +18,26 @@
       font-family: Arial, sans-serif;
       overflow: hidden;
     }
-       /* Enlace arriba a la derecha */
     .top-right-link {
-      position: fixed;      /* fijo en la pantalla */
-      top: 12px;            /* separación desde arriba */
-      right: 12px;          /* separación desde la derecha */
-      z-index: 2000;        /* por encima de todo */
-      background: rgba(255,255,255,0.06);
-      color: #dd7f13;
-      padding: 8px 12px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      border: 1px solid rgba(221,127,19,0.15);
-      transition: transform .15s, box-shadow .15s, background .15s;
-      backdrop-filter: blur(6px);
-    }
+  position: fixed;
+  top: 20px;
+  right: 25px;
+  z-index: 3000;      /* más alto que la tarjeta */
+  color: #dd7f13;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: .2s;
+}
 
-    .top-right-link:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
-      background: rgba(255,255,255,0.08);
-    }
+.top-right-link:hover {
+  transform: scale(1.06);
+  background: rgba(0,0,0,0.6);
+}
 
     /* Fondo con luces */
     .background-effects {
