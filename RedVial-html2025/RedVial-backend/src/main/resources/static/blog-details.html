@@ -10,9 +10,23 @@
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/css/main.css" rel="stylesheet">
+
+  <!-- LEAFLET CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <style>
+    #map {
+      width: 100%;
+      height: 350px;
+      border-radius: 10px;
+      margin-top: 10px;
+      border: 1px solid #ddd;
+      z-index: 0;
+    }
+  </style>
 </head>
 
-<body class="service-details-page" onload="requireLogin(); cargarReportes();">
+<body class="service-details-page" onload="requireLogin(); cargarReportes(); inicializarMapa();">
 
   <!-- Header -->
   <header id="header" class="header d-flex align-items-center fixed-top">
@@ -58,7 +72,8 @@
             <div class="card shadow-sm">
               <div class="card-body">
                 <h3 class="card-title mb-3">
-                  <i class="bi bi-flag-fill text-warning me-2"></i> Crear nuevo reporte
+                  <i class="bi bi-flag-fill text-warning me-2"></i>
+                  Crear nuevo reporte
                 </h3>
 
                 <div class="mb-3">
@@ -68,22 +83,14 @@
 
                 <div class="mb-3">
                   <label class="form-label">Ubicación</label>
-                  <input id="rep_ubicacion" 
-                         type="text" 
+                  <input id="rep_ubicacion"
+                         type="text"
                          class="form-control"
-                         placeholder="Escribe o pega la ubicación del mapa">
+                         placeholder="Haz clic en el mapa para seleccionar la ubicación"
+                         autocomplete="off">
 
-                  <!-- MAPA FIJO (NO USA API KEY, NO FALLA) -->
-                  <div style="width:100%; height:auto; border-radius:10px; overflow:hidden; margin-top:10px;">
-                    <iframe 
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.0092355804227!2d-72.51049942594389!3d7.894101605722344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e664570a2843265%3A0x4ee2aa1487817690!2sCl.%202%20%23771%2C%20Carora%2C%20C%C3%BAcuta%2C%20Norte%20de%20Santander!5e0!3m2!1ses!2sco!4v1764727240345!5m2!1ses!2sco"
-                      width="100%"
-                      height="350"
-                      style="border:0;"
-                      allowfullscreen=""
-                      loading="lazy">
-                    </iframe>
-                  </div>
+                  <!-- MAPA INTERACTIVO -->
+                  <div id="map"></div>
                 </div>
 
                 <div class="mb-3">
@@ -99,7 +106,7 @@
             </div>
           </div>
 
-          <!-- Lista de reportes -->
+          <!-- Lista reportes -->
           <div class="col-lg-7">
             <h3 class="mb-3">Reportes recientes</h3>
             <div id="lista-reportes"></div>
@@ -112,10 +119,50 @@
 
   </main>
 
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
   <!-- Scripts -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/auth.js"></script>
   <script src="assets/js/reportes.js"></script>
+
+  <!-- MAPA LEAFLET -->
+  <script>
+    let map, marker;
+
+    function inicializarMapa() {
+      // Punto inicial: tu ubicación por defecto (Cúcuta)
+      const ubicacionInicial = [7.8941, -72.5104];
+
+      map = L.map('map').setView(ubicacionInicial, 16);
+
+      // Cargar capa de mapa gratuita
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+      }).addTo(map);
+
+      // Crear marcador movible
+      marker = L.marker(ubicacionInicial, { draggable: true }).addTo(map);
+
+      // Evento: arrastrar marcador
+      marker.on("dragend", function () {
+        const pos = marker.getLatLng();
+        actualizarUbicacion(pos);
+      });
+
+      // Evento: clic en el mapa
+      map.on("click", function (e) {
+        marker.setLatLng(e.latlng);
+        actualizarUbicacion(e.latlng);
+      });
+    }
+
+    function actualizarUbicacion(latlng) {
+      document.getElementById("rep_ubicacion").value =
+        `Lat: ${latlng.lat.toFixed(6)}, Lng: ${latlng.lng.toFixed(6)}`;
+    }
+  </script>
 
 </body>
 </html>
