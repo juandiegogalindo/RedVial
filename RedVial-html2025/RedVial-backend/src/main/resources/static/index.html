@@ -17,9 +17,7 @@
       background: #000000;
       font-family: Arial, sans-serif;
       overflow: hidden;
-      
     }
-    
 
     /* Fondo con luces */
     .background-effects {
@@ -112,7 +110,6 @@
       color: #aaa;
       transition: 0.3s;
       pointer-events: none;
-  
     }
 
     input:focus + label,
@@ -139,7 +136,7 @@
       transform: scale(1.03);
       box-shadow: 0 0 15px #00eaff;
     }
-.
+
     /* Registro */
     .signup {
       text-align: center;
@@ -149,27 +146,46 @@
     .signup a {
       color: #dd7f13;
     }
-  
+
+    /* NUEVO LINK EL TIEMPO – UBICADO DONDE MARCASTE */
+    .link-tiempo {
+      position: fixed;
+      top: 42%;
+      right: 10%;
+      font-size: 22px;
+      color: #00eaff;
+      font-weight: bold;
+      text-decoration: none;
+      z-index: 2000;
+      transition: .2s;
+    }
+
+    .link-tiempo:hover {
+      color: #ffffff;
+      text-shadow: 0 0 10px #00eaff;
+    }
+
   </style>
-  
+
 </head>
 
 <!-- HEADER -->
-  <header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-    <a href="PaginaPrincipal.html" class="logo d-flex align-items-center">
-      </a>
-     
-      <nav id="navmenu" class="navmenu">
-        <ul>
-          <li><a href="https://www.eltiempo.com/">EL TIEMPO</a></li>
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
+<header id="header" class="header d-flex align-items-center fixed-top">
+  <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+    <a href="PaginaPrincipal.html" class="logo d-flex align-items-center"></a>
+    
+    <nav id="navmenu" class="navmenu">
+      <ul>
+        <li><a href="https://www.eltiempo.com/">EL TIEMPO</a></li>
+      </ul>
+      <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+    </nav>
+  </div>
+</header>
 
-    </div>
-  </header>
-  
+<!-- NUEVO ELEMENTO UBICADO EXACTAMENTE DONDE LO INDICASTE -->
+<a href="https://www.eltiempo.com/" class="link-tiempo" target="_blank">EL TIEMPO</a>
+
 <body>
 
   <!-- Luces de fondo -->
@@ -178,20 +194,20 @@
     <div class="glow glow2"></div>
     <div class="glow glow3"></div>
   </div>
-  
+
   <div class="login-card">
     <div class="redVial-logoTransparente">
       <center><img src="assets/img/redVial-logoTransparente.png" width="100" alt="" data-aos="fade-in"></center>   
     </div>
- 
-    
+
     <h2>Accede a tu cuenta</h2>
+
     <!-- INPUT CORREO -->
     <div class="input-wrapper">
       <input type="email" id="correo" class="input-field" placeholder=" " required>
       <label for="correo">Correo electrónico</label>
     </div>
-    
+
     <!-- INPUT CONTRASEÑA -->
     <div class="input-wrapper">
       <input type="password" id="password" class="input-field" placeholder=" " required>
@@ -203,11 +219,13 @@
     <div class="signup">
       <a href="registro.html">¿No tienes cuenta? Regístrate</a>
     </div>  
+
     <div class="signup admin-link" style="margin-top: 10px;">
       <a href="loginAdmin.html">Administradores</a>
-         <a href="https://www.eltiempo.com">Tiempo</a>
+      <a href="https://www.eltiempo.com">Tiempo</a>
     </div>
-  </div>                                                                                  
+
+  </div>
 
   <script>
     async function login() {
@@ -233,5 +251,7 @@
       window.location.href = "PaginaPrincipal.html";
     }
   </script>
+
 </body>
 </html>
+
