@@ -93,7 +93,6 @@ async function crearReporte() {
 
   alert("Reporte enviado");
 
-  // Limpiar campos
   document.getElementById("rep_titulo").value = "";
   document.getElementById("rep_ubicacion").value = "";
   document.getElementById("rep_descripcion").value = "";
