@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -8,7 +9,17 @@
   <link href="assets/img/redVial-logoTransparente.png" rel="icon">
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
   <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    #map {
+      width: 100%;
+      height: 350px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 
 <body class="service-details-page">
@@ -18,7 +29,7 @@
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
       <a href="PaginaPrincipal.html" class="logo d-flex align-items-center">
-        <h1 class="sitename">Red Vial</h1>
+        <h1 class="sitename">RED VIAL</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
@@ -73,6 +84,7 @@
                          class="form-control"
                          placeholder="Selecciona ubicación en el mapa"
                          autocomplete="off">
+                  <div id="map"></div>
                 </div>
 
                 <div class="mb-3">
@@ -105,35 +117,51 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
 
   <!-- Scripts -->
-  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/assets/js/auth.js"></script>
-  <script src="/assets/js/reportes.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/reportes.js"></script>
 
+  <!-- MAP PICKER -->
   <script>
-    function initAutocomplete() {
-      const input = document.getElementById("rep_ubicacion");
+    let map, marker, geocoder;
 
-      const autocomplete = new google.maps.places.Autocomplete(input, {
-        types: ["geocode"],
-        componentRestrictions: { country: "co" }
+    function initMapPicker() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 4.710989, lng: -74.072090 }, // Bogotá
+        zoom: 12,
       });
 
-      autocomplete.addListener("place_changed", () => {
-        const place = autocomplete.getPlace();
+      geocoder = new google.maps.Geocoder();
 
-        if (!place.formatted_address) {
-          alert("Selecciona una ubicación válida.");
-          return;
+      map.addListener("click", (event) => {
+        placeMarker(event.latLng);
+        getAddress(event.latLng);
+      });
+    }
+
+    function placeMarker(location) {
+      if (marker) marker.setMap(null);
+
+      marker = new google.maps.Marker({
+        position: location,
+        map: map,
+      });
+    }
+
+    function getAddress(latlng) {
+      geocoder.geocode({ location: latlng }, (results, status) => {
+        if (status === "OK" && results[0]) {
+          document.getElementById("rep_ubicacion").value = results[0].formatted_address;
+        } else {
+          alert("No se pudo obtener la dirección.");
         }
-
-        input.value = place.formatted_address;
       });
     }
 
     window.onload = function () {
       requireLogin();
       cargarReportes();
-      initAutocomplete();
+      initMapPicker();
     };
   </script>
 
